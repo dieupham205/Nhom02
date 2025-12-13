@@ -84,27 +84,7 @@ public class ToursController : Controller
         return View(tours);
     }
 
-    // GET: Tours/Details/5
-    public async Task<IActionResult> Details(int? id)
-    {
-        var userName = User?.Identity?.Name ?? "Unknown User";
 
-        if (id == null)
-        {
-            Log.Warning("User {UserName} tried to access Tour Details with null ID", userName);
-            return NotFound();
-        }
-
-        var tour = await _unitOfWork.TourRepository.GetByIdAsync(id.Value, "Destination");
-        if (tour == null)
-        {
-            Log.Warning("User {UserName} tried to access Tour Details with invalid ID {TourId}", userName, id);
-            return NotFound();
-        }
-
-        Log.Information("User {UserName} accessed details of Tour {TourId}", userName, id);
-        return View(tour);
-    }
 
     // GET: Tours/Create
     public async Task<IActionResult> Create()
@@ -258,4 +238,53 @@ public class ToursController : Controller
     {
         return _unitOfWork.TourRepository.GetByIdAsync(id) != null;
     }
+
+    [AllowAnonymous]
+    public IActionResult Domestic()
+    {
+        ViewData["Title"] = "Tour Nội Địa";
+        return View();
+    }
+
+    [AllowAnonymous]
+    public IActionResult International()
+    {
+        ViewData["Title"] = "Tour Quốc Tế";
+        return View();
+    }
+    [AllowAnonymous]
+
+        // GET: Tours/Details/5
+    public async Task<IActionResult> Details(int? id)
+    {
+        var userName = User?.Identity?.Name ?? "Unknown User";
+
+        if (id == null)
+        {
+            Log.Warning("User {UserName} tried to access Tour Details with null ID", userName);
+            return NotFound();
+        }
+
+        var tour = await _unitOfWork.TourRepository.GetByIdAsync(id.Value, "Destination");
+        if (tour == null)
+        {
+            Log.Warning("User {UserName} tried to access Tour Details with invalid ID {TourId}", userName, id);
+            return NotFound();
+        }
+
+        Log.Information("User {UserName} accessed details of Tour {TourId}", userName, id);
+        return View(tour);
+    }
+    [AllowAnonymous]
+[HttpGet]
+public async Task<IActionResult> PublicTours()
+{
+    var tours = await _unitOfWork.TourRepository.GetAllAsync(
+        t => t.IsActive == true,
+        includeProperties: "Destination"
+    );
+
+    return View(tours);
+}
+
 }

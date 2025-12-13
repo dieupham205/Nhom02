@@ -1,60 +1,113 @@
 ﻿@model Tour
-
 @{
-    ViewData["Title"] = "Tour Details";
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_AnotherLayout.cshtml";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container py-5">
 
-<div>
-    <h4>Tour</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MaxParticipants)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MaxParticipants)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Destination)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Destination.Name)
-        </dd>
-    </dl>
+    <!-- TIÊU ĐỀ -->
+    <h2 class="section-title text-center mb-5 fw-bold display-5">
+        @Model.Name
+    </h2>
+
+    <!-- KHỐI CHÍNH -->
+    <div class="row g-0 bg-white rounded-4 shadow-lg overflow-hidden mb-5">
+
+        <!-- HÌNH TOUR -->
+        <div class="col-lg-6 p-0">
+            <img src="https://i.pinimg.com/736x/4f/21/56/4f21561611565c9ec124db26985e4898.jpg"
+                 class="w-100 h-100"
+                 style="object-fit: cover;"
+                 alt="@Model.Name">
+        </div>
+
+        <!-- GIÁ + INFO -->
+        <div class="col-lg-6 bg-light d-flex align-items-center justify-content-center">
+            <div class="p-4 p-lg-5 text-center w-100">
+
+                <h2 class="text-warning fw-bold mb-4 display-4">
+                    @string.Format("{0:N0}đ", Model.Price)
+                </h2>
+
+                <div class="mb-4">
+
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <i class="ri-map-pin-line text-success me-3 fs-4"></i>
+                        <span class="fw-medium">Điểm đến: @Model.Destination.Name</span>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <i class="ri-calendar-line text-danger me-3 fs-4"></i>
+                        <span class="fw-medium">
+                            @Model.StartDate.ToString("dd/MM/yyyy") - @Model.EndDate.ToString("dd/MM/yyyy")
+                        </span>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <i class="ri-team-line text-primary me-3 fs-4"></i>
+                        <span class="fw-medium">Tối đa @Model.MaxParticipants khách</span>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <i class="ri-flight-takeoff-line text-info me-3 fs-4"></i>
+                        <span class="fw-medium">Máy bay + Xe du lịch</span>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="d-grid gap-3">
+                    <a href="https://zalo.me/0866849040?text=Em muốn đặt tour @Model.Name giá @string.Format("{0:N0}đ", Model.Price)"
+                       target="_blank"
+                       class="btn btn-warning btn-lg rounded-pill fw-bold shadow-lg">
+                        Đặt ngay
+                    </a>
+
+                    <a href="tel:0866849040"
+                       class="btn btn-outline-warning btn-lg rounded-pill fw-bold border-2">
+                        Liên hệ tư vấn
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MÔ TẢ -->
+    <div class="bg-white rounded-4 shadow-sm p-4 p-lg-5">
+        <h3 class="fw-bold text-primary mb-4 text-center">
+            Thông tin chi tiết tour
+        </h3>
+
+        <p class="lead text-muted text-center">
+            @Model.Description
+        </p>
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.TourId" class="btn btn-primary">Edit</a> |
-    <a asp-action="Index" class="btn btn-default">Back to List</a>
-</div>
+
+<style>
+    .section-title {
+        color: #2c3e88;
+    }
+
+    .btn-warning {
+        background-color: #f1c40f;
+        border: none;
+    }
+
+    .btn-warning:hover {
+        background-color: #e67e22;
+    }
+
+    .btn-outline-warning {
+        border-color: #f1c40f;
+        color: #f1c40f;
+    }
+
+    .btn-outline-warning:hover {
+        background-color: #f1c40f;
+        color: #000;
+    }
+</style>
