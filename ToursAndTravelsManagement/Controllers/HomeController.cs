@@ -63,8 +63,11 @@ public class HomeController : Controller
         return RedirectToAction("ThankYou");
     }
 
-    public IActionResult ThankYou()
+    public IActionResult Chitiet()
     {
         return View();
     }
+
+
+
 }

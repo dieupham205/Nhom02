@@ -1,135 +1,209 @@
 ﻿@model ToursAndTravelsManagement.Services.EmailService.ContactFormModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
     Layout = "~/Views/Shared/_AnotherLayout.cshtml";
 }
 
-<!-- HERO -->
-<section id="hero" class="min-vh-100 d-flex align-items-center text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 data-aos="fade-left" class="text-uppercase text-white fw-semibold display-3">Welcome to our
-                    <span class="fw-bolder">Tours and Travels Management System</span>
+<!-- HERO-->
+<section id="hero" class="hero min-vh-100 d-flex align-items-center position-relative overflow-hidden"
+         style="background: #2c3e88;">
+    <div class="container position-relative z-2">
+        <div class="row align-items-center">
+            <!-- Nội dung bên trái -->
+            <div class="col-lg-6 col-12 text-center text-lg-start" data-aos="fade-right">
+                <h1 class="display-2 fw-bold text-white mb-4 lh-base">
+                    Hơn <span class="text-warning">1000+ tour</span>,<br>
+                    khám phá ngay
                 </h1>
-                <h5 class="text-white mt-3 mb-4" data-aos="fade-right">We specialize in crafting unforgettable travel experiences that cater to your unique interests and preferences. With a passion for travel and a commitment to exceptional service, we are your trusted partners in exploring the globe.</h5>
-                <div data-aos="fade-up" data-aos-delay="50">
-                    <a class="btn btn-warning me-2" asp-controller="UserBookings" asp-action="AvailableTours">Get Started</a>
-                    <a href="#" class="btn btn-light ms-2">Our Portfolio</a>
+                <p class="lead text-white opacity-90 mb-5" style="font-size: 1.2rem; line-height: 1.7;">
+                    Tìm kiếm & đặt ngay hàng ngàn tour du lịch khắp Việt Nam và<br>
+                    thế giới với ưu đãi tốt nhất cùng Viva Vivu nhé.
+                </p>
+                <a href="/Tours/PublicTours" class="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg hover-lift mt-3">
+                    Xem chi tiết <i class="ri-arrow-right-line ms-1"></i>
+                </a>
+            </div>
+
+            <!-- 2 hình tròn bên phải -->
+            <div class="col-lg-6 col-12 text-center text-lg-end" data-aos="fade-left">
+                <div class="hero-circles position-relative d-inline-block">
+                    <div class="circle-back">
+                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&auto=format&fit=crop&q=85"
+                             alt="Tour Nhật Bản" class="rounded-circle">
+                    </div>
+                    <div class="circle-front">
+                        <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1200&auto=format&fit=crop&q=85"
+                             alt="Tour Nhật Bản mùa thu" class="rounded-circle">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CAROUSEL -->
-<div id="tourCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-        <button type="button" data-bs-target="#tourCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
-    </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="~/images/carousel (1).jpg" class="d-block w-100" alt="Historic City Tour">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Historic City Tour</h5>
-                <p>Delve into the rich history and culture of our city, visiting iconic landmarks and learning about the stories that shaped its past.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="~/images/carousel (2).jpg" class="d-block w-100" alt="Nature's Wonders">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Nature's Wonders</h5>
-                <p>Escape to the great outdoors and marvel at the beauty of our natural landscapes. From lush forests to stunning mountains, this tour offers a chance to connect with nature and enjoy its tranquility.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="~/images/carousel (3).jpg" class="d-block w-100" alt="Culinary Adventure">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Culinary Adventure</h5>
-                <p>Indulge in a gastronomic journey, exploring the local cuisine and sampling delicious dishes that reflect the region's culture and traditions.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="~/images/carousel (1).jpg" class="d-block w-100" alt="Art and Culture Tour">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Art and Culture Tour</h5>
-                <p>Immerse yourself in the local arts scene, visiting museums, galleries, and workshops to discover the talents of the area's creatives.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="~/images/carousel (2).jpg" class="d-block w-100" alt="Adrenaline Rush">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Adrenaline Rush</h5>
-                <p>For those seeking thrills, this tour offers a range of exciting activities, from white-water rafting to ziplining, ensuring an unforgettable and adrenaline-pumping experience.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="~/images/carousel (3).jpg" class="d-block w-100" alt="Relaxation Retreat">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Relaxation Retreat</h5>
-                <p>Unwind and rejuvenate with our relaxation retreat tour, featuring spa treatments, yoga sessions, and opportunities to relax in beautiful, serene settings.</p>
-            </div>
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#tourCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#tourCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+<!-- THANH TÌM KIẾM TOUR-->
+<section class="tour-search-section position-relative" style="margin-top: -11px; z-index: 10;">
+    <div class="container">
+        <div class="search-bar-modern bg-white rounded-pill shadow-xl border border-4 border-warning px-4 py-3">
+            <form class="row g-2 g-md-3 align-items-center justify-content-center" id="search-form">
+                <!-- Điểm đến -->
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="position-relative">
+                        <i class="ri-map-pin-line text-warning position-absolute top-50 start-3 translate-middle-y fs-5"></i>
+                        <select class="form-select border-0 shadow-none ps-5 py-3" id="destination-select" style="font-size: 0.95rem;" required>
+                            <option value="" disabled selected>Bạn muốn đi đâu?</option>
+                            <optgroup label="Trong nước">
+                                <option value="domestic/Mộc Châu">Mộc Châu</option>
+                                <option value="domestic/Đà Nẵng">Đà Nẵng</option>
+                                <option value="domestic/Phú Quốc">Phú Quốc</option>
+                            </optgroup>
+                            <optgroup label="Quốc tế">
+                                <option value="international/Trung Quốc">Trung Quốc</option>
+                                <option value="international/Sri Lanka">Sri Lanka</option>
+                                <option value="international/Nhật Bản">Nhật Bản</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
 
-<!-- ABOUT -->
-<section id="about" class="section-padding">
+                <!-- Ngày khởi hành -->
+                <div class="col-12 col-md-3 col-lg-3">
+                    <div class="position-relative">
+                        <i class="ri-calendar-line text-warning position-absolute top-50 start-3 translate-middle-y fs-5"></i>
+                        <select class="form-select border-0 shadow-none ps-5 py-3" id="month-select" style="font-size: 0.95rem;">
+                            <option value="" disabled selected>Ngày khởi hành</option>
+                            <option value="12">Tháng 12/2025</option>
+                            <option value="1">Tháng 1/2026</option>
+                            <option value="2">Tháng 2/2026</option>
+                            <option value="3">Tháng 3/2026</option>
+                            <option value="4">Tháng 4/2026</option>
+                            <option value="5">Tháng 5/2026</option>
+                            <option value="6">Tháng 6/2026</option>
+                            <option value="7">Tháng 7/2026</option>
+                            <option value="8">Tháng 8/2026</option>
+                            <option value="9">Tháng 9/2026</option>
+                            <option value="10">Tháng 10/2026</option>
+                            <option value="11">Tháng 11/2026</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Mức giá -->
+                <div class="col-12 col-md-3 col-lg-3">
+                    <div class="position-relative">
+                        <i class="ri-money-dollar-circle-line text-warning position-absolute top-50 start-3 translate-middle-y fs-5"></i>
+                        <select class="form-select border-0 shadow-none ps-5 py-3" id="price-select" style="font-size: 0.95rem;">
+                            <option value="" selected>Chọn mức giá</option>
+                            <option value="under10">Dưới 10 triệu</option>
+                            <option value="10to20">10 - 20 triệu</option>
+                            <option value="20to30">20 - 30 triệu</option>
+                            <option value="over30">Trên 30 triệu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Nút Tìm kiếm -->
+                <div class="col-12 col-md-2 col-lg-3">
+                    <button type="submit" class="btn btn-warning btn-lg w-100 rounded-pill fw-bold py-3 shadow-lg hover-lift">
+                        Tìm kiếm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('search-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Ngăn submit form mặc định
+
+        const destinationSelect = document.getElementById('destination-select').value;
+        
+        if (!destinationSelect) {
+            alert('Vui lòng chọn điểm đến!');
+            return;
+        }
+
+        const [page, location] = destinationSelect.split('/');
+
+        // Tạo URL đích (thay đổi theo cấu trúc dự án của bạn)
+        let url = '/'; // Trang chủ hoặc trang mặc định nếu cần
+        
+        if (page === 'domestic') {
+            // Giả sử trang du lịch trong nước có route như /Domestic hoặc /DuLichTrongNuoc
+            // Ví dụ: chuyển hướng với query string để lọc
+            url = `/Tours/Domestic`;
+        } else if (page === 'international') {
+            // Trang du lịch quốc tế
+            url = `/Tours/International`;
+        }
+
+        // Thêm các tham số khác nếu cần (tháng, giá)
+        const month = document.getElementById('month-select').value;
+        if (month) {
+            url += (url.includes('?') ? '&' : '?') + `month=${month}`;
+        }
+
+        const price = document.getElementById('price-select').value;
+        if (price) {
+            url += (url.includes('?') ? '&' : '?') + `price=${price}`;
+        }
+
+        // Chuyển hướng
+        window.location.href = url;
+    });
+</script>
+
+<!-- ĐỊA ĐIỂM NỔI BẬT -->
+<section id="portfolio" class="section-padding bg-light pt-120">
     <div class="container">
         <div class="row">
-            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="50">
-                <div class="section-title">
-                    <h1 class="display-4 fw-semibold">About us</h1>
-                    <div class="line bg-warning"></div>
-                    <p>We love to craft unforgettable travel experiences for adventurers rather than generic tours and mundane itineraries. Let’s explore the world with passion and creativity!</p>
-                </div>
+            <div class="col-12 text-center mb-5" data-aos="fade-down">
+                <h1 class="display-4 fw-semibold">Những địa điểm đáng đi nhất trên thế giới</h1>
             </div>
         </div>
-        <div class="row justify-content-between align-items-center">
-            <div class="col-lg-6" data-aos="fade-down" data-aos-delay="50">
-                <img src="~/images/about.jpg" alt="">
+        <div class="row g-5 justify-content-center">
+            <!-- Địa điểm 1: Machu Picchu -->
+            <div class="col-lg-4 col-md-6 col-11" data-aos="fade-up" data-aos-delay="100">
+                <div class="destination-card position-relative overflow-hidden rounded-4 shadow-lg">
+                    <img src="https://i.pinimg.com/736x/53/00/42/53004261961a83dbd195c3c73926803b.jpg" 
+                         class="img-fluid w-100" alt="Machu Picchu, Peru">
+                    
+                    <div class="caption-overlay position-absolute bottom-0 start-0 end-0 bg-white p-4">
+                        <h5 class="fw-semibold mb-0">Machu Picchu, Peru</h5>
+                        <a href="/Tours/PublicTours" class="text-dark text-decoration-none small fw-medium">
+                            Xem chi tiết <i class="ri-arrow-right-line ms-1"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div data-aos="fade-down" data-aos-delay="150" class="col-lg-5">
-                <h1>About Tours and Travels Management System</h1>
-                <p class="mt-3 mb-4">At Tours and Travels Management System, we believe in creating magical journeys that leave lasting memories. Our team of travel enthusiasts is dedicated to curating unique and personalized travel experiences that cater to your wanderlust.</p>
-                <div class="d-flex pt-4 mb-3">
-                    <div class="iconbox me-4">
-                        <i class="ri-mail-send-fill"></i>
-                    </div>
-                    <div>
-                        <h5>We are Awesome</h5>
-                        <p>Our expertise in travel planning ensures that every trip is seamless and stress-free. From exotic destinations to hidden gems, we bring you the best of the world.</p>
-                    </div>
-                </div>
-                <div class="d-flex mb-3">
-                    <div class="iconbox me-4">
-                        <i class="ri-user-5-fill"></i>
-                    </div>
-                    <div>
-                        <h5>We are Awesome</h5>
-                        <p>With a deep understanding of diverse cultures and destinations, we provide insights and recommendations that make your travel experience truly exceptional.</p>
+
+            <!-- Địa điểm 2: Đền Angkor -->
+            <div class="col-lg-4 col-md-6 col-11" data-aos="fade-up" data-aos-delay="200">
+                <div class="destination-card position-relative overflow-hidden rounded-4 shadow-lg">
+                    <img src="https://i.pinimg.com/1200x/2a/b5/26/2ab5266cef153a8090b94ba8391fcad3.jpg" 
+                         class="img-fluid w-100" alt="Đền Angkor, Campuchia">
+                    
+                    <div class="caption-overlay position-absolute bottom-0 start-0 end-0 bg-white p-4">
+                        <h5 class="fw-semibold mb-0">Đền Angkor, Campuchia</h5>
+                        <a href="/Tours/PublicTours" class="text-dark text-decoration-none small fw-medium">
+                            Xem chi tiết <i class="ri-arrow-right-line ms-1"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="d-flex">
-                    <div class="iconbox me-4">
-                        <i class="ri-rocket-2-fill"></i>
-                    </div>
-                    <div>
-                        <h5>We are Awesome</h5>
-                        <p>Our commitment to excellence means that we go above and beyond to exceed your expectations. Whether it’s a solo adventure or a family vacation, we make every journey special.</p>
+            </div>
+
+            <!-- Địa điểm 3: Kim tự tháp Giza -->
+            <div class="col-lg-4 col-md-6 col-11" data-aos="fade-up" data-aos-delay="300">
+                <div class="destination-card position-relative overflow-hidden rounded-4 shadow-lg">
+                    <img src="https://i.pinimg.com/736x/3c/cc/a4/3ccca4f3fa9629fcc93bc99a7fff8cdc.jpg" 
+                         class="img-fluid w-100" alt="Kim tự tháp Giza, Ai Cập">
+                    
+                    <div class="caption-overlay position-absolute bottom-0 start-0 end-0 bg-white p-4">
+                        <h5 class="fw-semibold mb-0">Kim tự tháp Giza, Ai Cập</h5>
+                        <a href="/Tours/PublicTours" class="text-dark text-decoration-none small fw-medium">
+                            Xem chi tiết <i class="ri-arrow-right-line ms-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -137,453 +211,298 @@
     </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" class="section-padding border-top">
+<!-- KHUYẾN MÃI 20% LẦN ĐẦU -->
+<section id="promotion" class="section-padding" style="background-color: #333a73">
     <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150">
-                <div class="section-title">
-                    <h1 class="display-4 fw-semibold">Awesome Services</h1>
-                    <div class="line bg-warning"></div>
-                    <p>We love to craft unforgettable travel experiences for adventurers rather than generic tours and mundane itineraries. Let’s explore the world with passion and creativity!</p>
-                </div>
+        <div class="row align-items-center g-5">
+            <!-- Nội dung bên trái -->
+            <div class="col-lg-7 col-12 text-center text-lg-start">
+                <h1 class="display-3 fw-bold mb-4" style="color: white;">Nhận ưu đãi ngay<br>khi đặt tour lần đầu tiên</h1>
+                <p class="lead mb-4 opacity-90" style="color: white;">
+                    Đừng bỏ lỡ ưu đãi độc quyền dành riêng cho khách hàng mới! Nhận ngay giảm giá 20% khi lần đầu tiên đặt tour. Ưu đãi này chỉ áp dụng cho khách hàng mới và có thời hạn, hãy nhanh tay đăng ký và cùng chúng tôi khám phá thế giới!
+                </p>
+                <a href="#" class="btn btn-warning btn-lg px-5 py-3 fw-bold text-dark" style="color: white;">Đặt ngay</a>
             </div>
-        </div>
-        <div class="row g-4 text-center">
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
-                <div class="service theme-shadow p-lg-5 p-4">
-                    <div class="iconbox">
-                        <i class="ri-pen-nib-fill"></i>
+            <!-- 20% OFF bên phải -->
+            <div class="col-lg-5 col-12 text-center">
+                <div class="position-relative">
+                    <div class="position-absolute top-50 end-0 translate-middle-y me-lg-5">
+                        <h1 class="display-1 fw-bold text-warning" style="font-size: 12rem; text-shadow: 3px 3px 10px rgba(0,0,0,0.5);">
+                            20% <span class="d-block fs-1">OFF</span>
+                        </h1>
                     </div>
-                    <h5 class="mt-4 mb-3">Travel Planning </h5>
-                    <p>Our team meticulously plans every detail of your journey, ensuring a seamless and stress-free experience. From flights to accommodations, we’ve got you covered.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="250">
-                <div class="service theme-shadow p-lg-5 p-4">
-                    <div class="iconbox">
-                        <i class="ri-stack-fill"></i>
-                    </div>
-                    <h5 class="mt-4 mb-3">
-                        Customized Itineraries
-                    </h5>
-                    <p>We create personalized itineraries tailored to your interests and preferences. Whether you’re seeking adventure, relaxation, or cultural immersion, we design the perfect trip for you.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="350">
-                <div class="service theme-shadow p-lg-5 p-4">
-                    <div class="iconbox">
-                        <i class="ri-ruler-2-fill"></i>
-                    </div>
-                    <h5 class="mt-4 mb-3">
-                        Guided Tours
-                    </h5>
-                    <p>Explore destinations with our expert guides who provide in-depth knowledge and unique insights. Discover hidden gems and local secrets that make your journey truly special.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="450">
-                <div class="service theme-shadow p-lg-5 p-4">
-                    <div class="iconbox">
-                        <i class="ri-pie-chart-2-fill"></i>
-                    </div>
-                    <h5 class="mt-4 mb-3">Travel Consultation</h5>
-                    <p>Our travel consultants offer expert advice and recommendations to help you make informed decisions. From visa requirements to travel insurance, we provide all the information you need.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="550">
-                <div class="service theme-shadow p-lg-5 p-4">
-                    <div class="iconbox">
-                        <i class="ri-code-box-line"></i>
-                    </div>
-                    <h5 class="mt-4 mb-3">24/7 Support</h5>
-                    <p>We offer round-the-clock support to assist you during your travels. Whether you need help with a booking or have an emergency, our team is always available to assist you.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="650">
-                <div class="service theme-shadow p-lg-5 p-4">
-                    <div class="iconbox">
-                        <i class="ri-user-2-fill"></i>
-                    </div>
-                    <h5 class="mt-4 mb-3">Travel Planning</h5>
-                    <p>Our team meticulously plans every detail of your journey, ensuring a seamless and stress-free experience. From flights to accommodations, we’ve got you covered.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- COUNTER -->
-<section id="counter" class="section-padding">
-    <div class="container text-center">
-        <div class="row g-4">
-            <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="150">
-                <h1 class="text-white display-4">90,00+</h1>
-                <h6 class="text-uppercase mb-0 text-white mt-3">Total Downloads</h6>
-            </div>
-            <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="250">
-                <h1 class="text-white display-4">58K+</h1>
-                <h6 class="text-uppercase mb-0 text-white mt-3">Trusted Clients</h6>
-            </div>
-            <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="350">
-                <h1 class="text-white display-4">5M+</h1>
-                <h6 class="text-uppercase mb-0 text-white mt-3">THemes Designed</h6>
-            </div>
-            <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="450">
-                <h1 class="text-white display-4">100+</h1>
-                <h6 class="text-uppercase mb-0 text-white mt-3">Team Members</h6>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PORTFOLIO -->
-<section id="portfolio" class="section-padding">
+<!-- ƯU ĐÃI TỐT NHẤT HÔM NAY -->
+<section id="best-offers" class="section-padding bg-light">
     <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150">
-                <div class="section-title">
-                    <h1 class="display-4 fw-semibold">Our Portfolio</h1>
-                    <div class="line bg-warning"></div>
-                    <p>We love to create unforgettable travel experiences for explorers rather than generic tours and more mundane trips. Join us and discover the world with our unique skills and passion for adventure.</p>
-                </div>
+        <!-- Tiêu đề -->
+        <div class="row mb-5">
+            <div class="col-12 text-center" data-aos="fade-down">
+                <h2 class="display-4 fw-bold text-dark mb-3">Ưu đãi tốt nhất hôm nay</h2>
             </div>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="150">
-                <div class="portfolio-item image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/project-5.jpg" alt="">
-                    </div>
-                    <a href="~/images/project-1.jpg" data-fancybox="gallery" class="iconbox"><i class="ri-search-2-line bg-warning"></i></a>
-                </div>
-                <div class="portfolio-item image-zoom mt-4">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/project-2.jpg" alt="">
-                    </div>
-                    <a href="~/images/project-2.jpg" data-fancybox="gallery" class="iconbox"><i class="ri-search-2-line bg-warning"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="250">
-                <div class="portfolio-item image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/project-3.jpg" alt="">
-                    </div>
-                    <a href="~/images/project-3.jpg" data-fancybox="gallery" class="iconbox"><i class="ri-search-2-line bg-warning"></i></a>
-                </div>
-                <div class="portfolio-item image-zoom mt-4">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/project-4.jpg" alt="">
-                    </div>
-                    <a href="~/images/project-4.jpg" data-fancybox="gallery" class="iconbox"><i class="ri-search-2-line bg-warning"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="350">
-                <div class="portfolio-item image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/project-1.jpg" alt="">
-                    </div>
-                    <a href="~/images/project-5.jpg" data-fancybox="gallery" class="iconbox"><i class="ri-search-2-line bg-warning"></i></a>
-                </div>
-                <div class="portfolio-item image-zoom mt-4">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/project-6.jpg" alt="">
-                    </div>
-                    <a href="~/images/project-6.jpg" data-fancybox="gallery" class="iconbox"><i class="ri-search-2-line bg-warning"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- REVIEW -->
-<section id="reviews" class="section-padding bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150">
-                <div class="section-title">
-                    <h1 class="display-4 fw-semibold">Testimonials</h1>
-                    <div class="line bg-warning"></div>
-                    <p>We love to craft unforgettable travel experiences for adventurers rather than generic tours and mundane itineraries. Let’s explore the world with passion and creativity!</p>
-                </div>
-            </div>
-        </div>
-        <div class="row gy-5 gx-4">
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="150">
-                <div class="review">
-                    <div class="review-head p-4 bg-white theme-shadow">
-                        <div class="text-warning">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <p>This website has been my go-to resource for planning my trips. The detailed guides and insider tips have made my travels so much more enjoyable and stress-free.</p>
-                    </div>
-                    <div class="review-person mt-4 d-flex align-items-center">
-                        <img class="rounded-circle" src="~/images/avatar-5.jpg" alt="">
-                        <div class="ms-3">
-                            <h5>Priya Sharma</h5>
-                            <small>Travel Blogger</small>
+        <!-- Danh sách tour ưu đãi -->
+        <div class="row g-4 justify-content-center">
+            <!-- Tour 1 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="offer-card rounded-4 overflow-hidden shadow-sm h-100 bg-white position-relative hover-lift">
+                    <div class="position-relative">
+                        <img src="https://i.pinimg.com/736x/32/b0/50/32b050f9f375d158b2e3dd20c9b11553.jpg" 
+                             class="img-fluid w-100" style="height: 280px; object-fit: cover;" alt="Tour Trung Quốc">
+                        <div class="badge bg-danger position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill fw-bold">
+                            −35%
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="250">
-                <div class="review">
-                    <div class="review-head p-4 bg-white theme-shadow">
-                        <div class="text-warning">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <p>I love how easy it is to find information on this site. The recommendations for local attractions and restaurants have always been spot on. Highly recommend!</p>
-                    </div>
-                    <div class="review-person mt-4 d-flex align-items-center">
-                        <img class="rounded-circle" src="~/images/avatar-6.jpg" alt="">
-                        <div class="ms-3">
-                            <h5>Ayesha Shaikh</h5>
-                            <small>Software Engineer</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="350">
-                <div class="review">
-                    <div class="review-head p-4 bg-white theme-shadow">
-                        <div class="text-warning">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <p>As a photographer, I appreciate the stunning visuals and comprehensive travel guides. This website has helped me discover some hidden gems that I wouldn’t have found otherwise.</p>
-                    </div>
-                    <div class="review-person mt-4 d-flex align-items-center">
-                        <img class="rounded-circle" src="~/images/avatar-3.jpg" alt="">
-                        <div class="ms-3">
-                            <h5>Anjali Mehta</h5>
-                            <small>Photographer </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="450">
-                <div class="review">
-                    <div class="review-head p-4 bg-white theme-shadow">
-                        <div class="text-warning">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <p>Planning a family vacation can be overwhelming, but this website made it a breeze. The family-friendly travel tips and destination reviews were incredibly helpful.</p>
-                    </div>
-                    <div class="review-person mt-4 d-flex align-items-center">
-                        <img class="rounded-circle" src="~/images/avatar-4.jpg" alt="">
-                        <div class="ms-3">
-                            <h5>Amit Patel</h5>
-                            <small>Teacher</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="550">
-                <div class="review">
-                    <div class="review-head p-4 bg-white theme-shadow">
-                        <div class="text-warning">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <p>I travel frequently for work, and this website has been a lifesaver. The business travel section is full of useful advice and recommendations that have made my trips more efficient and enjoyable.</p>
-                    </div>
-                    <div class="review-person mt-4 d-flex align-items-center">
-                        <img class="rounded-circle" src="~/images/avatar-1.jpg" alt="">
-                        <div class="ms-3">
-                            <h5>Aisha Ahmed</h5>
-                            <small>Marketing Executive</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6" data-aos="fade-down" data-aos-delay="650">
-                <div class="review">
-                    <div class="review-head p-4 bg-white theme-shadow">
-                        <div class="text-warning">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                        </div>
-                        <p>As a chef, I love exploring new cuisines and cultures. This website has provided me with fantastic food guides and culinary experiences that have enriched my travels.</p>
-                    </div>
-                    <div class="review-person mt-4 d-flex align-items-center">
-                        <img class="rounded-circle" src="~/images/avatar-2.jpg" alt="">
-                        <div class="ms-3">
-                            <h5>Rajesh Kumar</h5>
-                            <small>Chef</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- TEAM -->
-<section id="team" class="section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150">
-                <div class="section-title">
-                    <h1 class="display-4 fw-semibold">Our Best Drivers</h1>
-                    <div class="line bg-warning"></div>
-                    <p>We love to craft unforgettable travel experiences for adventurers rather than generic tours and mundane itineraries. Let’s explore the world with passion and creativity!</p>
-                </div>
-            </div>
-        </div>
-        <div class="row g-4 text-center ">
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="150">
-                <div class="team-member image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/person-1.jpg" alt="">
-                    </div>
-                    <div class="team-member-content">
-                        <h4 class="text-white">Ibrahim  Shaikh</h4>
-                        <p class="mb-0 text-white">Lead Navigator</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="250">
-                <div class="team-member image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/person-2.jpg" alt="" style="width: 564px;">
-                    </div>
-                    <div class="team-member-content">
-                        <h4 class="text-white">Tayyab Shaikh</h4>
-                        <p class="mb-0 text-white">Chief Travel Guide</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="350">
-                <div class="team-member image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/person-3.jpg" alt="">
-                    </div>
-                    <div class="team-member-content">
-                        <h4 class="text-white">Aamer Shaikh</h4>
-                        <p class="mb-0 text-white">
-                            Senior Journey Specialist
+                    <div class="p-4">
+                        <h3 class="h5 fw-bold">Tour văn hóa Trung Quốc: Khám phá các thị trấn cổ</h3>
+                        <p class="text-muted small mb-2">
+                            <i class="ri-map-pin-line"></i> Trung Quốc | 5 Ngày 4 Đêm
                         </p>
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div>
+                                <span class="text-decoration-line-through text-muted">15.900.000đ</span>
+                                <p class="price fs-3 fw-bold text-warning mb-0">10.250.000đ</p>
+                            </div>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Chitiet">Xem ngay</a>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Tour 2 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="offer-card rounded-4 overflow-hidden shadow-sm h-100 bg-white position-relative hover-lift">
+                    <div class="position-relative">
+                        <img src="https://i.pinimg.com/736x/4f/21/56/4f21561611565c9ec124db26985e4898.jpg" 
+                             class="img-fluid w-100" style="height: 280px; object-fit: cover;" alt="Tour Sri Lanka">
+                        <div class="badge bg-danger position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill fw-bold">
+                            −28%
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="h5 fw-bold">Tuần trăng mật lãng mạn ở Sri Lanka</h3>
+                        <p class="text-muted small mb-2">
+                            <i class="ri-map-pin-line"></i> Sri Lanka | 8 Ngày 7 Đêm
+                        </p>
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div>
+                                <span class="text-decoration-line-through text-muted">31.250.000đ</span>
+                                <p class="price fs-3 fw-bold text-warning mb-0">22.500.000đ</p>
+                            </div>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Chitiet">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tour 3 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="offer-card rounded-4 overflow-hidden shadow-sm h-100 bg-white position-relative hover-lift">
+                    <div class="position-relative">
+                        <img src="https://i.pinimg.com/736x/1d/b1/f9/1db1f98b1403770b6e97e6cf0213cd27.jpg" 
+                             class="img-fluid w-100" style="height: 280px; object-fit: cover;" alt="Tour Nhật Bản">
+                        <div class="badge bg-danger position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill fw-bold">
+                            HOT
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="h5 fw-bold">Tour khám phá Vương quốc Mặt trời mọc</h3>
+                        <p class="text-muted small mb-2">
+                            <i class="ri-map-pin-line"></i> Nhật Bản | 7 Ngày 6 Đêm
+                        </p>
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div>
+                                <p class="price fs-3 fw-bold text-warning mb-0">22.500.000đ</p>
+                            </div>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Chitiet">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút Xem thêm -->
+        <div class="text-center mt-5">
+            <a href="/Tours/PublicTours" class="btn btn-outline-dark btn-lg px-5 py-3 rounded-pill fw-medium">
+                Xem thêm tours
+            </a>
         </div>
     </div>
 </section>
 
-<!-- CONTACT -->
-<section class="section-padding bg-light" id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150">
-                <div class="section-title">
-                    <h1 class="display-4 text-white fw-semibold">Gete in touch</h1>
-                    <div class="line bg-warning bg-white"></div>
-                    <p class="text-white">We love to craft unforgettable travel experiences for adventurers rather than generic tours and mundane itineraries. Let’s explore the world with passion and creativity!</p>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center" data-aos="fade-down" data-aos-delay="250">
-            <div class="col-lg-8">
-                <form asp-action="SubmitForm" method="post" class="row g-3 p-lg-5 p-4 bg-white theme-shadow">
-                    <div class="form-group col-lg-6">
-                        <input asp-for="FirstName" class="form-control" placeholder="Enter first name" required />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <input asp-for="LastName" class="form-control" placeholder="Enter last name" required />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <input asp-for="Email" type="email" class="form-control" placeholder="Enter Email address" required />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <input asp-for="Subject" class="form-control" placeholder="Enter subject" required />
-                        <span asp-validation-for="Subject" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <textarea asp-for="Message" rows="5" class="form-control" placeholder="Enter Message" required></textarea>
-                        <span asp-validation-for="Message" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-lg-12 d-grid">
-                        <button type="submit" class="btn btn-warning">Send Message</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
+<style>
+    .hero { 
+        min-height: 100vh; 
+        background: #333a73;
+        padding: 0;
+    }
 
-<!-- BLOG -->
-<section id="blog" class="section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center" data-aos="fade-down" data-aos-delay="150">
-                <div class="section-title">
-                    <h1 class="display-4 fw-semibold">Recent News & Articles</h1>
-                    <div class="line bg-warning"></div>
-                    <p>We love to craft unforgettable travel experiences for adventurers rather than generic tours and mundane itineraries. Let’s explore the world with passion and creativity!</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="150">
-                <div class="team-member image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/carousel (1).jpg" alt="">
-                    </div>
-                    <h5 class="mt-4">
-                        Travel Trends 2024
-                    </h5>
-                    <p>Discover the latest travel trends and destinations that are capturing the hearts of explorers worldwide. From hidden gems to popular hotspots, stay updated with what’s new in the travel world.</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="250">
-                <div class="team-member image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/carousel (2).jpg" alt="">
-                    </div>
-                    <h5 class="mt-4">
-                        Adventure Travel Tips
-                    </h5>
-                    <p>Get expert advice on how to make the most of your adventure travels. Learn about essential gear, safety tips, and the best adventure activities to try on your next trip.</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-down" data-aos-delay="350">
-                <div class="team-member image-zoom">
-                    <div class="image-zoom-wrapper">
-                        <img src="~/images/carousel (3).jpg" alt="">
-                    </div>
-                    <h5 class="mt-4">
-                        Sustainable Travel
-                    </h5>
-                    <p>Explore how you can travel responsibly and make a positive impact on the environment. Learn about eco-friendly destinations, sustainable travel practices, and how to reduce your carbon footprint while exploring the world.</p>
-                    <a href="#">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    .hero-circles { 
+        width: 560px; height: 560px; position: relative; 
+    }
+    .circle-back  { width: 420px; height: 420px; position: absolute; top: 50px; right: 0; border-radius: 50%; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,.4); }
+    .circle-front { width: 340px; height: 340px; position: absolute; bottom: 0; right: -50px; border-radius: 50%; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.45); z-index: 2; }
+    .circle-back img, .circle-front img { 
+        width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; 
+    }
+    .circle-back:hover img, .circle-front:hover img { transform: scale(1.08); }
 
+    .hover-lift { transition: transform .3s ease, box-shadow .3s ease; }
+    .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 15px 35px #97651f!important; }
+
+    /* ==================== THANH TÌM KIẾM ==================== */
+    .tour-search-section { 
+        margin-top: -100px; 
+        z-index: 10; 
+        pointer-events: none; 
+    }
+    .tour-search-section > .container { pointer-events: all; }
+
+    .search-bar-modern {
+        max-width: 960px;
+        margin: 0 auto;
+        background: rgba(255,255,255,.97);
+        backdrop-filter: blur(20px);
+        border: 4px solid #fba834;
+        border-radius: 60px;
+        box-shadow: 0 20px 50px rgba(0,0,0,.2);
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        min-height: 76px;
+    }
+    .search-bar-modern .position-relative i { 
+        color: #fba834; 
+        font-size: 1.3rem; 
+        left: 16px; 
+        top: 50%; 
+        transform: translateY(-50%);
+    }
+    .search-bar-modern .form-control,
+    .search-bar-modern .form-select {
+        height: 56px;
+        background: transparent;
+        border: none;
+        padding-left: 52px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+    .search-bar-modern .form-control:focus,
+    .search-bar-modern .form-select:focus {
+        background: #fffbeb;
+        box-shadow: none;
+    }
+    .search-bar-modern .btn-warning {
+        height: 56px;
+        min-width: 150px;
+        background: #fba834;
+        border: none;
+        font-weight: 700;
+        border-radius: 50px;
+        box-shadow: 0 0 8px 25px #bc7e27;
+    }
+    .search-bar-modern .btn-warning:hover {
+        background: #fba834;
+        transform: translateY(-4px);
+        box-shadow: 0 14px 35px #bc7e27;
+    }
+
+    /* ==================== CARD CHUNG ==================== */
+    .destination-card, .offer-card { 
+        transition: all .4s ease; 
+        height: 100%;
+    }
+    .destination-card:hover, .offer-card:hover { 
+        transform: translateY(-16px); 
+        box-shadow: 0 30px 60px rgba(0,0,0,.22)!important; 
+    }
+    .destination-card img, .offer-card img { 
+        transition: transform .5s ease; 
+    }
+    .destination-card:hover img, .offer-card:hover img { 
+        transform: scale(1.08); 
+    }
+
+    /* RESPONSIVE */
+    @@media (max-width: 1400px) {
+        .hero-circles { width: 500px; height: 500px; }
+        .circle-back { width: 380px; height: 380px; }
+        .circle-front { width: 310px; height: 310px; right: -40px; }
+    }
+
+    @@media (max-width: 1200px) {
+        .hero h1 { font-size: 3.8rem !important; }
+        .hero-circles { width: 460px; height: 460px; }
+        .circle-back { width: 340px; height: 340px; }
+        .circle-front { width: 280px; height: 280px; }
+        .search-bar-modern { max-width: 840px; }
+    }
+
+    @@media (max-width: 992px) {
+        .hero h1 { font-size: 3.2rem !important; text-align: center; }
+        .hero p { text-align: center; font-size: 1.1rem; }
+        .hero .btn { margin: 20px auto 0; display: block; width: fit-content; }
+        .hero-circles { width: 420px; height: 420px; margin: 40px auto 0; }
+        .circle-back { width: 310px; height: 310px; top: 30px; right: 50%; transform: translateX(50%); }
+        .circle-front { width: 260px; height: 260px; bottom: -40px; right: 15%; }
+        .tour-search-section { margin-top: -70px; }
+        .search-bar-modern { max-width: 680px; }
+    }
+
+    @@media (max-width: 768px) {
+        .hero { text-align: center; padding: 120px 0 80px; }
+        .hero h1 { font-size: 2.8rem !important; }
+        .hero p br { display: none; }
+        .hero-circles { width: 360px; height: 360px; margin: 30px auto 0; }
+        .circle-back, .circle-front { position: static; margin: 15px auto; }
+        .circle-front { margin-top: -90px; }
+
+        .tour-search-section { margin-top: -50px; }
+        }
+        .search-bar-modern {
+            max-width: 96%;
+            height: auto;
+            flex-direction: column;
+            padding: 20px 16px;
+            border-radius: 32px;
+            gap: 14px;
+        }
+        .search-bar-modern .row { width: 100%; margin: 0; }
+        .search-bar-modern .col-12 { margin-bottom: 0; }
+        .search-bar-modern .form-control,
+        .search-bar-modern .form-select { height: 52px; font-size: 0.95rem; }
+        .search-bar-modern .btn-warning { width: 100%; height: 54px; font-size: 1.05rem; }
+
+        #portfolio .destination-card { height: 440px; }
+        #best-offers .offer-card img { height: 220px; }
+    }
+
+    @@media (max-width: 576px) {
+        .hero h1 { font-size: 2.4rem !important; }
+        .hero p { font-size: 1rem; }
+        .hero-circles { width: 320px; height: 320px; }
+        .circle-back, .circle-front { width: 240px; height: 240px; }
+        .circle-front { margin-top: -80px; }
+
+        #portfolio h1, #best-offers h2 { font-size: 2rem !important; }
+        #portfolio .destination-card { height: 400px; }
+        #promotion h1 { font-size: 2.4rem !important; text-align: center; }
+        #promotion .display-1 { font-size: 7rem !important; }
+    }
+
+    @@media (max-width: 400px) {
+        .hero h1 { font-size: 2.1rem !important; }
+        .hero-circles { width: 280px; height: 280px; }
+        .circle-back, .circle-front { width: 200px; height: 200px; }
+        .search-bar-modern { padding: 16px; border-radius: 28px; }
+        .search-bar-modern .form-control,
+        .search-bar-modern .form-select { height: 48px; font-size: 0.9rem; }
+        .search-bar-modern .btn-warning { height: 50px; font-size: 1rem; }
+    }
+</style>

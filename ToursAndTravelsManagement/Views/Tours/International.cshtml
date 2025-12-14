@@ -1,0 +1,217 @@
+@{
+    ViewData["Title"] = "Du Lịch Quốc tế";
+    ViewData["IsFullWidth"] = true;
+}
+
+<h1 class="text-center display-4 fw-bold text-white py-4 mb-5" style="background-color: #333a73;">Du lịch quốc tế</h1>
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <!-- Bộ lọc bên trái -->
+            <div class="col-lg-3 mb-4">
+                <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-4">Bộ lọc tìm kiếm</h5>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Ngân sách</label>
+                            <select id="filter-budget" class="form-select">
+                                <option value="all">Tất cả</option>
+                                <option value="under10">Dưới 10 triệu</option>
+                                <option value="10to20">10 - 20 triệu</option>
+                                <option value="over20">Trên 20 triệu</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Điểm đến</label>
+                            <select id="filter-destination" class="form-select">
+                                <option value="all">Tất cả</option>
+                                <option value="Trung Quốc">Trung Quốc</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="Nhật Bản">Nhật Bản</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Thời gian</label>
+                            <select id="filter-duration" class="form-select">
+                                <option value="all">Tất cả</option>
+                                <option value="5N4Đ">5 Ngày 4 Đêm</option>
+                                <option value="8N7Đ">8 Ngày 7 Đêm</option>
+                                <option value="7N6Đ">7 Ngày 6 Đêm</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danh sách tour -->
+            <div class="col-lg-9">
+                <h3 class="fw-bold mb-5 text-primary">Tour quốc tế nổi bật</h3>
+
+                <div id="tour-list">
+                    <!-- Render bằng JS -->
+                </div>
+
+                <div id="no-results" class="text-center py-5 d-none">
+                    <h4 class="text-muted">Không tìm thấy tour nào phù hợp với bộ lọc</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const tours = [
+        {
+            title: "Trung Quốc",
+            code: "NDHAN120",
+            departure: "Hà Nội",
+            duration: "5N4Đ",
+            vehicle: "Xe",
+            departureDates: ["18/2", "19/2", "20/2", "21/2"],
+            highlightDate: "20/2",
+            oldPrice: "15.900.000đ",
+            newPrice: "10.250.000đ",
+            image: "https://i.pinimg.com/736x/32/b0/50/32b050f9f375d158b2e3dd20c9b11553.jpg",
+            destination: "Trung Quốc"
+        },
+        {
+            title: "Sri Lanka",
+            code: "NDDAN045",
+            departure: "TP. Hồ Chí Minh",
+            duration: "8N7Đ",
+            vehicle: "Máy bay",
+            departureDates: ["15/2", "20/2", "25/2"],
+            highlightDate: "20/2",
+            oldPrice: "31.250.000đ",
+            newPrice: "22.500.000đ",
+            image: "https://i.pinimg.com/736x/4f/21/56/4f21561611565c9ec124db26985e4898.jpg",
+            destination: "Sri Lanka"
+        },
+        {
+            title: "Nhật Bản - Cáp Treo Hòn Thơm - Grand World",
+            code: "NDPQ068",
+            departure: "TP. Hồ Chí Minh",
+            duration: "7N6Đ",
+            vehicle: "Máy bay",
+            departureDates: ["10/2", "18/2", "22/2"],
+            highlightDate: "18/2",
+            newPrice: "22.500.000đ",
+            image: "https://i.pinimg.com/736x/1d/b1/f9/1db1f98b1403770b6e97e6cf0213cd27.jpg",
+            destination: "Nhật Bản"
+        }
+    ];
+
+    function renderTours(filteredTours) {
+        const container = document.getElementById('tour-list');
+        container.innerHTML = '';
+
+        if (filteredTours.length === 0) {
+            document.getElementById('no-results').classList.remove('d-none');
+            return;
+        }
+        document.getElementById('no-results').classList.add('d-none');
+
+        filteredTours.forEach((tour, index) => {
+            let datesHtml = '';
+            tour.departureDates.forEach(date => {
+                if (date === tour.highlightDate) {
+                    datesHtml += `<button class="btn btn-warning rounded-pill fw-bold px-3 py-1 me-2 mb-2">${date}</button>`;
+                } else {
+                    datesHtml += `<button class="btn btn-outline-secondary rounded-pill px-3 py-1 me-2 mb-2">${date}</button>`;
+                }
+            });
+
+            const card = `
+                <div class="row g-5 mb-5 align-items-center" data-aos="fade-up" data-aos-delay="${index * 200}">
+                    <!-- Hình bên trái -->
+                    <div class="col-md-5">
+                        <img src="${tour.image}" class="img-fluid rounded-4 shadow-lg" style="height: 450px; object-fit: cover; width: 100%;" alt="${tour.title}">
+                    </div>
+                    
+                    <!-- Nội dung bên phải -->
+                    <div class="col-md-7">
+                        <h2 class="h3 fw-bold mb-4">${tour.title}</h2>
+                        
+                        <div class="row g-4 mb-4 text-muted">
+                            <div class="col-sm-6"><i class="fas fa-tag me-2"></i><strong>Mã tour:</strong> ${tour.code}</div>
+                            <div class="col-sm-6"><i class="fas fa-map-marker-alt me-2"></i><strong>Khởi hành:</strong> ${tour.departure}</div>
+                            <div class="col-sm-6"><i class="fas fa-clock me-2"></i><strong>Thời gian:</strong> ${tour.duration}</div>
+                            <div class="col-sm-6"><i class="fas fa-bus me-2"></i><strong>Phương tiện:</strong> ${tour.vehicle}</div>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <strong class="fs-5">Ngày khởi hành:</strong>
+                            <div class="d-flex gap-2 flex-wrap mt-3">
+                                ${datesHtml}
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div>
+                                ${tour.oldPrice ? `<span class="text-decoration-line-through text-muted fs-4 me-4">${tour.oldPrice}</span>` : ''}
+                                <h3 class="fw-bold text-danger mb-0 fs-1">${tour.newPrice}</h3>
+                            </div>
+                            <a href="/Home/Chitiet" class="btn btn-outline-primary btn-sm rounded-pill px-4 py-2">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>`;
+            container.innerHTML += card;
+        });
+    }
+
+    function filterTours() {
+        let filtered = tours;
+
+        const budget = document.getElementById('filter-budget').value;
+        filtered = filtered.filter(t => {
+            const price = parseFloat(t.newPrice.replace(/\D/g, ''));
+            if (budget === 'under10') return price < 10000000;
+            if (budget === '10to20') return price >= 10000000 && price <= 20000000;
+            if (budget === 'over20') return price > 20000000;
+            return true;
+        });
+
+        const destination = document.getElementById('filter-destination').value;
+        if (destination !== 'all') filtered = filtered.filter(t => t.destination === destination);
+
+        const duration = document.getElementById('filter-duration').value;
+        if (duration !== 'all') filtered = filtered.filter(t => t.duration === duration);
+
+        renderTours(filtered);
+    }
+
+    document.querySelectorAll('#filter-budget, #filter-destination, #filter-duration').forEach(el => {
+        el.addEventListener('change', filterTours);
+    });
+
+    renderTours(tours);
+</script>
+
+<style>
+    .btn-outline-primary {
+        background-color: #fba834;
+        color: white;
+    }
+    .btn-outline-primary:hover {
+        background-color: #2e3468;
+        color: white;
+    }
+    @@media (max-width: 767px) {
+        .row > div {
+            text-align: center;
+        }
+        .d-flex.justify-content-between {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .btn-sm {
+            width: 100%;
+            max-width: 200px;
+        }
+    }
+</style>

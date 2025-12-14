@@ -86,3 +86,78 @@
         </ul>
     </nav>
 </div>
+<style>
+    :root {
+        --primary-purple: #2c3e88;
+        --primary-dark: #1e2a5e;
+        --warning-orange: #ff9800;
+        --light-purple: #f8f5ff;
+        --bg-light-purple: #e8e0ff;
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark)) !important;
+    }
+
+    .bg-light-purple {
+        background-color: var(--bg-light-purple) !important;
+    }
+
+    .text-primary { color: var(--primary-purple) !important; }
+
+    .btn-warning {
+        background-color: var(--warning-orange) !important;
+        border-color: var(--warning-orange) !important;
+        color: white !important;
+    }
+
+    .btn-warning:hover {
+        background-color: #e2972f !important;
+        transform: translateY(-3px);
+    }
+
+    .table-row-hover:hover {
+        background-color: var(--light-purple) !important;
+        transition: all 0.3s ease;
+    }
+
+    .page-item.active .page-link {
+        background: var(--primary-purple) !important;
+        border-color: var(--primary-purple) !important;
+        color: white !important;
+    }
+
+    .page-link {
+        color: var(--primary-purple);
+        border: 1px solid #ddd;
+    }
+
+    .page-link:hover {
+        background-color: var(--light-purple);
+        color: var(--primary-purple);
+        border-color: var(--primary-purple);
+    }
+
+    .hover-lift {
+        transition: all 0.3s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+
+    .shadow-xl {
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+    }
+
+    .card {
+        border-radius: 1.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .display-5 { font-size: 2rem; }
+        .btn-lg { font-size: 1rem; padding: 0.75rem 1.5rem; }
+        table { font-size: 0.9rem; }
+    }
+</style>
