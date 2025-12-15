@@ -1,39 +1,215 @@
-﻿@model IEnumerable<ToursAndTravelsManagement.Models.Booking>
+﻿@{
+    ViewData["Title"] = "Thông tin khách hàng";
+}
 
-<h2>Your Bookings</h2>
+<style>
+    .card-profile { border: none; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .nav-pills .nav-link { border-radius: 10px; color: #5b638b; font-weight: 500; padding: 12px 20px; margin-bottom: 5px; }
+    .nav-pills .nav-link.active { background-color: #27377D; color: #fff; }
+    .nav-pills .nav-link:hover:not(.active) { background-color: #f8f9fa; color: #27377D; }
+    .form-control { border-radius: 10px; padding: 12px 15px; border-color: #dee2e6; }
+    .form-control:focus { border-color: #27377D; box-shadow: 0 0 0 0.25rem rgba(39, 55, 125, 0.1); }
+    .btn-primary-custom { background-color: #F7A531; border: none; border-radius: 10px; padding: 10px 30px; font-weight: bold; color: white; }
+    .btn-primary-custom:hover { background-color: #e0942a; color: white; }
+    .avatar-circle { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 4px solid #F7F1E6; }
+    .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+    .status-upcoming { background-color: #e3f2fd; color: #0d47a1; }
+    .status-completed { background-color: #e8f5e9; color: #1b5e20; }
+    .status-cancelled { background-color: #ffebee; color: #b71c1c; }
+</style>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Tour Name</th>
-            <th>Booking Date</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var booking in Model)
-        {
-            <tr>
-                <td>@(booking.Tour != null ? booking.Tour.Name : "No Tour")</td>
-                <td>@booking.BookingDate.ToShortDateString()</td>
-                <td>@booking.Status</td>
-                <td>
-                    @if (booking.Status != ToursAndTravelsManagement.Enums.BookingStatus.Canceled)
-                    {
-                        <form asp-action="MyBookings" method="post" style="display:inline;">
-                            <input type="hidden" name="bookingId" value="@booking.BookingId" />
-                            <input type="hidden" name="action" value="Cancel" />
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <span class="text-muted">Canceled</span>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container py-5">
+    <div class="row g-4">
+        
+        <div class="col-lg-3">
+            <div class="card card-profile p-4 h-100">
+                <div class="text-center mb-4 pb-3 border-bottom">
+                    <img src="https://e7.pngegg.com/pngimages/439/19/png-clipart-avatar-user-profile-icon-women-wear-frock-face-holidays.png" alt="Avatar" class="avatar-circle mb-3">
+                    <h5 class="fw-bold mb-1">Nguyễn Văn A</h5>
+                    <p class="text-muted small">Thành viên Bạc</p>
+                </div>
+                
+                <div class="nav flex-column nav-pills">
+                    <a class="nav-link active d-flex align-items-center gap-3" href="#">
+                        <i class="ri-user-line"></i> Thông tin tài khoản
+                    </a>
+                    <a class="nav-link d-flex align-items-center gap-3" href="#">
+                        <i class="ri-history-line"></i> Lịch sử đặt tour
+                    </a>
+                    <a class="nav-link d-flex align-items-center gap-3" href="#">
+                        <i class="ri-heart-line"></i> Tour yêu thích
+                    </a>
+                    <a class="nav-link d-flex align-items-center gap-3" href="#">
+                        <i class="ri-lock-password-line"></i> Đổi mật khẩu
+                    </a>
+                    <hr class="my-2">
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-grid">
+                        <button type="submit" class="nav-link text-danger d-flex align-items-center gap-3 w-100 text-start" style="background: none; border: none;">
+                            <i class="ri-logout-box-line"></i> Đăng xuất
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            
+            <div class="card card-profile p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold" style="color: #27377D;">Thông tin cá nhân</h4>
+                    <button class="btn btn-light rounded-circle"><i class="ri-edit-line"></i></button>
+                </div>
+                
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Họ và tên</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="ri-user-line"></i></span>
+                                <input type="text" class="form-control border-start-0 ps-0" value="Nguyễn Văn A" placeholder="Nhập họ tên">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="ri-mail-line"></i></span>
+                                <input type="email" class="form-control border-start-0 ps-0" value="nguyenvan.a@example.com" placeholder="Nhập email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Số điện thoại</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="ri-phone-line"></i></span>
+                                <input type="tel" class="form-control border-start-0 ps-0" value="0912 345 678" placeholder="Nhập SĐT">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Ngày sinh</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="ri-calendar-line"></i></span>
+                                <input type="date" class="form-control border-start-0 ps-0" value="1995-10-12">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">Địa chỉ</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="ri-map-pin-line"></i></span>
+                                <input type="text" class="form-control border-start-0 ps-0" value="123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh">
+                            </div>
+                        </div>
+                        <div class="col-12 text-end mt-4">
+                            <button type="button" class="btn btn-primary-custom shadow">
+                                <i class="ri-save-line me-1"></i> Cập nhật thông tin
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card card-profile p-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                    <h4 class="fw-bold m-0" style="color: #27377D;">Lịch sử đặt tour</h4>
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary btn-sm" for="btnradio1">Tất cả</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-primary btn-sm" for="btnradio2">Sắp tới</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <label class="btn btn-outline-primary btn-sm" for="btnradio3">Đã đi</label>
+                    </div>
+                </div>
+
+                <div class="card mb-3 border shadow-none hover-shadow transition">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://thesinhtour.com/wp-content/uploads/2022/05/1-2-e1652348228651.jpg" class="img-fluid rounded-start h-100 object-fit-cover" alt="Tour Image">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title fw-bold mb-0">Du thuyền Hạ Long - Lan Hạ 2N1Đ</h5>
+                                    <span class="status-badge status-upcoming">Sắp khởi hành</span>
+                                </div>
+                                <div class="text-muted small mb-3">
+                                    <span class="me-3"><i class="ri-calendar-line"></i> 15/11/2023</span>
+                                    <span class="me-3"><i class="ri-user-line"></i> 2 người lớn</span>
+                                    <span><i class="ri-ticket-line"></i> #BK7829</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-end border-top pt-3">
+                                    <div>
+                                        <small class="text-muted">Tổng thanh toán</small>
+                                        <div class="fw-bold text-primary fs-5">5.200.000đ</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary rounded-pill px-3">Chi tiết</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3 border shadow-none hover-shadow transition opacity-75">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://www.datchinrongtravel.com/uploads/post/dji_0004-1-scaled_1.jpg" class="img-fluid rounded-start h-100 object-fit-cover grayscale" alt="Tour Image" style="filter: grayscale(80%);">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title fw-bold mb-0">Tour Đà Nẵng - Hội An 3N2Đ</h5>
+                                    <span class="status-badge status-completed">Hoàn thành</span>
+                                </div>
+                                <div class="text-muted small mb-3">
+                                    <span class="me-3"><i class="ri-calendar-line"></i> 10/10/2023</span>
+                                    <span class="me-3"><i class="ri-user-line"></i> 1 người</span>
+                                    <span><i class="ri-ticket-line"></i> #BK5521</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-end border-top pt-3">
+                                    <div>
+                                        <small class="text-muted">Tổng thanh toán</small>
+                                        <div class="fw-bold text-primary fs-5">3.500.000đ</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-warning text-white rounded-pill px-3">Đặt lại</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 
+                 <div class="card mb-3 border shadow-none hover-shadow transition bg-light">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://eholiday.vn/wp-content/uploads/2023/01/fansipan-3-600x400.jpg" class="img-fluid rounded-start h-100 object-fit-cover" alt="Tour Image" style="opacity: 0.6;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title fw-bold mb-0 text-muted">Sapa - Fansipan Huyền Thoại 2N1Đ</h5>
+                                    <span class="status-badge status-cancelled">Đã hủy</span>
+                                </div>
+                                <div class="text-muted small mb-3">
+                                    <span class="me-3"><i class="ri-calendar-line"></i> 20/09/2023</span>
+                                    <span class="me-3"><i class="ri-user-line"></i> 4 người</span>
+                                    <span><i class="ri-ticket-line"></i> #BK4411</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-end border-top pt-3">
+                                    <div>
+                                        <small class="text-muted">Tổng thanh toán</small>
+                                        <div class="fw-bold text-muted fs-5 text-decoration-line-through">6.800.000đ</div>
+                                    </div>
+                                    <span class="text-danger small fw-bold">Hủy bởi khách hàng</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a href="#" class="text-decoration-none fw-bold" style="color: #27377D;">Xem toàn bộ lịch sử <i class="ri-arrow-right-line"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
