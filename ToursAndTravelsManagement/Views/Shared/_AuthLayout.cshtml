@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,112 +13,26 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/tours.css" />
+    <link rel="stylesheet" href="~/css/auth-layout.css" asp-append-version="true"/>
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
 <body>
-    <header>
-        <nav
-            class="navbar navbar-expand-lg bg-white sticky-top navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="https://i.pinimg.com/736x/ab/97/ea/ab97eab08f5408455e1d9962c4bc15e5.jpg"
-                        alt="Viva Vivu Logo" class="mb-3" style="height: 60px;">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Features
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="Tours" asp-action="Index">Tours</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Destinations"
-                                            asp-action="Index">Destinations</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Bookings" asp-action="Index">Bookings</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Tours" asp-action="Domestic">Tour nội
-                                địa</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Tours" asp-action="International">Tour quốc
-                                tế</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="About">
-                                Về Chúng Tôi
-                            </a>
+    <header class="auth-header">
+    <div class="container d-flex align-items-center justify-content-between py-3">
+       <!-- Logo -->
+<a asp-controller="Admin" asp-action="Profile" class="d-flex align-items-center text-decoration-none">
+    <img src="~/images/logovivavivu.png" alt="VivaVivu" class="auth-logo">
+</a>
 
-                        </li>
+<!-- User login -->
+<div class="auth-user">
+    <span class="auth-name">@(User?.Identity?.Name ?? "Nguyễn Văn A")</span>
+    <img src="~/images/avatar3.jpg" alt="Avatar" class="auth-avatar">
+</div>
+    </div>
+</header>
 
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Admin
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="DataGeneration"
-                                            asp-action="GenerateDestinations">Generate Destinations</a></li>
-                                    <li><a class="dropdown-item" asp-controller="DataGeneration"
-                                            asp-action="GenerateTours">Generate Tours</a></li>
-                                    <li><a class="dropdown-item" asp-controller="DataGeneration"
-                                            asp-action="GenerateBookings">Generate Bookings</a></li>
-                                </ul>
-                            </li>
-                        }
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @if (User.IsInRole("Customer"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="UserBookings" asp-action="MyBookings">My bookings</a>
-                                </li>
-                            }
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                                </li>
-                            }
-
-                            <li class="nav-item">
-                                <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                                    <button type="submit" class="btn btn-warning ms-lg-3">Logout</button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account"
-                                    asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account"
-                                    asp-action="Register">Register</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
 
     <div class="@(ViewData["IsFullWidth"] != null && (bool)ViewData["IsFullWidth"] ? "w-100" : "container")">
         <main role="main" class="pb-3">

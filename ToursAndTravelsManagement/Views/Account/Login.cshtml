@@ -2,44 +2,48 @@
 @model LoginViewModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Giữ lại Header/Footer
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="login-container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="login-box p-4 shadow-sm">
+        <h2 class="text-center mb-5">Đăng nhập</h2>
+        
+        <form asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <div asp-validation-summary="All" class="text-danger text-center mb-3"></div>
+            
+            <div class="d-flex mb-4 login-tabs-group">
+                <button type="button" class="btn btn-tab flex-fill active" id="tab-email">Email</button>
+                <button type="button" class="btn btn-tab flex-fill" id="tab-phone">Số điện thoại</button>
+            </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="RememberMe">
-                            <input asp-for="RememberMe" />
-                            @Html.DisplayNameFor(m => m.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
-                    </p>
-                </div>
-            </form>
-        </section>
+            <div id="field-email" class="form-group mb-3 login-field active-field">
+                <input asp-for="Email" class="form-control" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div id="field-phone" class="form-group mb-3 login-field">
+                <label for="PhoneNumber" class="form-label">Số điện thoại</label>
+                <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="0912 345 678" />
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Password" class="form-label">Mật khẩu</label>
+                <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-custom-submit w-100">Đăng nhập</button>
+            </div>
+            
+            <div class="form-group text-center mt-3">
+                <p>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Đăng ký tài khoản mới?</a>
+                </p>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -47,4 +51,31 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        // JavaScript để xử lý việc chuyển đổi giữa Email và Số điện thoại
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabEmail = document.getElementById('tab-email');
+            const tabPhone = document.getElementById('tab-phone');
+            const fieldEmail = document.getElementById('field-email');
+            const fieldPhone = document.getElementById('field-phone');
+            
+            // Ban đầu ẩn trường Phone
+            fieldPhone.style.display = 'none';
+
+            tabEmail.addEventListener('click', function() {
+                tabEmail.classList.add('active');
+                tabPhone.classList.remove('active');
+                fieldEmail.style.display = 'block';
+                fieldPhone.style.display = 'none';
+            });
+
+            tabPhone.addEventListener('click', function() {
+                tabPhone.classList.add('active');
+                tabEmail.classList.remove('active');
+                fieldPhone.style.display = 'block';
+                fieldEmail.style.display = 'none';
+            });
+        });
+    </script>
 }

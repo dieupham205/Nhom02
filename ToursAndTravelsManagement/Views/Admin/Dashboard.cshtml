@@ -1,0 +1,118 @@
+@{
+    Layout = "_AuthLayout"; // giữ header admin + footer toàn bài
+    ViewData["Title"] = "Dashboard";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin-dashboard.css" asp-append-version="true" />
+}
+
+<div class="ad-page">
+    <div class="ad-wrap">
+
+        <!-- Left column -->
+        <aside class="ad-left">
+            <div class="ad-sidecard">
+                <div class="ad-side-title">My Dashboard</div>
+
+                <nav class="ad-sidemenu">
+                    <a class="active" asp-controller="Admin" asp-action="Dashboard">
+                        <span class="ad-ico">📊</span> Overview Dashboard
+                    </a>
+                    <a href="#">
+                        <span class="ad-ico">📈</span> Analyze
+                    </a>
+                    <a href="#">
+                        <span class="ad-ico">⤓</span> Export
+                    </a>
+                    <a href="#">
+                        <span class="ad-ico">⚙️</span> Setting
+                    </a>
+                </nav>
+            </div>
+
+            <div class="ad-motiv">
+                <div class="ad-motiv-text">
+                    Chúc các Admin của VivaVivu một ngày làm việc đầy năng lượng!
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right column -->
+        <main class="ad-main">
+
+            <div class="ad-topbar">
+                <h2 class="ad-title">Overview Dashboard</h2>
+
+                <div class="ad-filter">
+                    <span class="ad-filter-label">Thời điểm</span>
+                    <select class="ad-select" aria-label="Thời điểm">
+                        <option>01.12.2025 - 12.12.2025</option>
+                        <option>01.11.2025 - 30.11.2025</option>
+                        <option>01.10.2025 - 31.10.2025</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- KPI cards -->
+            <section class="ad-kpi">
+                <div class="ad-card">
+                    <div class="ad-card-title">Tổng doanh thu</div>
+                    <div class="ad-card-value">25.990.000đ</div>
+                </div>
+
+                <div class="ad-card">
+                    <div class="ad-card-title">Tổng số lượng book tour</div>
+                    <div class="ad-card-value">7.990.000đ</div>
+                </div>
+
+                <div class="ad-card">
+                    <div class="ad-card-title">Tổng số lượt huỷ tour</div>
+                    <div class="ad-card-value">42.990.000đ</div>
+                </div>
+
+                <div class="ad-card">
+                    <div class="ad-card-title">Tổng lợi nhuận</div>
+                    <div class="ad-card-value">5.490.000đ</div>
+                </div>
+            </section>
+
+            <!-- Chart placeholder -->
+            <section class="ad-chart">
+                <div class="ad-chart-header">
+                    <div class="ad-chart-tabs"><span class="active">Show top</span>
+                        <span>Source</span>
+                        <span>Attributions</span>
+                    </div>
+                    <button class="ad-dotbtn" type="button" aria-label="Menu">⋮</button>
+                </div>
+
+                <div class="ad-chart-canvas">
+                    <!-- placeholder chart -->
+                    <div class="ad-bars">
+                        <div class="ad-bar" style="--h:10%"></div>
+                        <div class="ad-bar" style="--h:22%"></div>
+                        <div class="ad-bar" style="--h:40%"></div>
+                        <div class="ad-bar" style="--h:58%"></div>
+                        <div class="ad-bar" style="--h:46%"></div>
+                        <div class="ad-bar" style="--h:52%"></div>
+                        <div class="ad-bar" style="--h:38%"></div>
+                        <div class="ad-bar" style="--h:28%"></div>
+                        <div class="ad-bar" style="--h:30%"></div>
+                        <div class="ad-bar" style="--h:26%"></div>
+                        <div class="ad-bar" style="--h:18%"></div>
+                        <div class="ad-bar" style="--h:14%"></div>
+                    </div>
+
+                    <div class="ad-xlabels">
+                        <span>Dec 1</span><span>Dec 2</span><span>Dec 3</span><span>Dec 4</span><span>Dec
+                            5</span><span>Dec 6</span>
+                        <span>Dec 7</span><span>Dec 8</span><span>Dec 9</span><span>Dec 10</span><span>Dec
+                            11</span><span>Dec 12</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>

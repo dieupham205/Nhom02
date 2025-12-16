@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,24 +17,47 @@
         footer {
             background: #333a73 !important;
             color: #e2e8f0 !important;
-            }
-        footer h5 { color: #fba834 !important; }
-        footer a { color: #e2e8f0 !important; transition: all .3s; }
-        footer a:hover { color: #e2972f !important; transform: translateY(-2px); }
-        footer i.ri { transition: all .3s; }
-        footer a:hover i.ri { transform: scale(1.15); }
-        footer .text-white { color: #e2e8f0 !important; }
+        }
+
+        footer h5 {
+            color: #fba834 !important;
+        }
+
+        footer a {
+            color: #e2e8f0 !important;
+            transition: all .3s;
+        }
+
+        footer a:hover {
+            color: #e2972f !important;
+            transform: translateY(-2px);
+        }
+
+        footer i.ri {
+            transition: all .3s;
+        }
+
+        footer a:hover i.ri {
+            transform: scale(1.15);
+        }
+
+        footer .text-white {
+            color: #e2e8f0 !important;
+        }
     </style>
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+        <nav
+            class="navbar navbar-expand-lg bg-white sticky-top navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="https://i.pinimg.com/736x/ab/97/ea/ab97eab08f5408455e1d9962c4bc15e5.jpg" alt="Viva Vivu Logo" class="mb-3" style="height: 60px;">
+                    <img src="https://i.pinimg.com/736x/ab/97/ea/ab97eab08f5408455e1d9962c4bc15e5.jpg"
+                        alt="Viva Vivu Logo" class="mb-3" style="height: 60px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -41,42 +65,55 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                         @if (User.IsInRole("Admin"))
-                         {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Features
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Features
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Tours" asp-action="Index">Tours</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Destinations"
+                                            asp-action="Index">Destinations</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Tours" asp-action="Domestic">Tour nội
+                                địa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Tours" asp-action="International">Tour quốc
+                                tế</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="About" asp-action="Index">
+                                Về Chúng Tôi
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="Tours" asp-action="Index">Tours</a></li>
-                                <li><a class="dropdown-item" asp-controller="Destinations" asp-action="Index">Destinations</a></li>
-                                <li><a class="dropdown-item" asp-controller="Bookings" asp-action="Index">Bookings</a></li>
-                            </ul>
-                        </li>
-                         }
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Tours" asp-action="Domestic">Tour nội địa</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Tours" asp-action="International">Tour quốc tế</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#about">About</a>
+
+
                         </li>
 
-                         @if (User.IsInRole("Admin"))
-                         {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="DataGeneration" asp-action="GenerateDestinations">Generate Destinations</a></li>
-                                <li><a class="dropdown-item" asp-controller="DataGeneration" asp-action="GenerateTours">Generate Tours</a></li>
-                                <li><a class="dropdown-item" asp-controller="DataGeneration" asp-action="GenerateBookings">Generate Bookings</a></li>
-                            </ul>
-                        </li>
-                         }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="DataGeneration"
+                                            asp-action="GenerateDestinations">Generate Destinations</a></li>
+                                    <li><a class="dropdown-item" asp-controller="DataGeneration"
+                                            asp-action="GenerateTours">Generate Tours</a></li>
+                                    <li><a class="dropdown-item" asp-controller="DataGeneration"
+                                            asp-action="GenerateBookings">Generate Bookings</a></li>
+                                </ul>
+                            </li>
+                        }
                         @if (User.Identity.IsAuthenticated)
                         {
                             @if (User.IsInRole("Customer"))
@@ -101,10 +138,12 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account"
+                                    asp-action="Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account"
+                                    asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>
@@ -119,91 +158,97 @@
         </main>
     </div>
 
-<!-- FOOTER-->
-<footer class="text-white py-5" style="background: #333a73 !important;">
-    <div class="container py-4">
-        <div class="row g-5 align-items-start">
+    <!-- FOOTER-->
+    <footer class="text-white py-5" style="background: #333a73 !important;">
+        <div class="container py-4">
+            <div class="row g-5 align-items-start">
 
-            <!-- Logo + Mô tả -->
-            <div class="col-lg-4 col-md-6 text-center text-lg-start">
-                <img src="https://i.pinimg.com/736x/6e/cf/58/6ecf589e3b9b2c86bfedb915ab85b47a.jpg" 
-                     alt="Viva Vivu Logo" class="mb-4 rounded-circle border border-4 border-warning" 
-                     style="height: 100px;">
+                <!-- Logo + Mô tả -->
+                <div class="col-lg-4 col-md-6 text-center text-lg-start">
+                    <img src="https://i.pinimg.com/736x/6e/cf/58/6ecf589e3b9b2c86bfedb915ab85b47a.jpg"
+                        alt="Viva Vivu Logo" class="mb-4 rounded-circle border border-4 border-warning"
+                        style="height: 100px;">
 
-                <p class="mb-0 small opacity-90" style="line-height: 1.7;">
-                    Nền tảng đặt tour du lịch trực tuyến hàng đầu Việt Nam.<br>
-                    Trải nghiệm hành trình tuyệt vời cùng Viva Vivu.
-                </p>
+                    <p class="mb-0 small opacity-90" style="line-height: 1.7;">
+                        Nền tảng đặt tour du lịch trực tuyến hàng đầu Việt Nam.<br>
+                        Trải nghiệm hành trình tuyệt vời cùng Viva Vivu.
+                    </p>
 
-                <div class="d-flex gap-4 justify-content-center justify-content-lg-start mt-4">
-                    <a href="https://facebook.com/vivavivu" target="_blank" class="text-white fs-3 opacity-80 hover-opacity-100">
-                        <img src="https://play-lh.googleusercontent.com/KCMTYuiTrKom4Vyf0G4foetVOwhKWzNbHWumV73IXexAIy5TTgZipL52WTt8ICL-oIo" 
-                            alt="Facebook" style="width: 40px; height: 40px; border-radius: 50%;">
-                    </a>
-                    <a href="https://zalo.me/0866849040" target="_blank" class="text-white fs-3 opacity-80 hover-opacity-100">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a1/a6/5f/a1a65fcc-2623-16f9-b2e5-1f248a2f9ed9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/230x0w.webp" 
-                            alt="Zalo" style="width: 40px; height: 40px; border-radius: 50%;">
-                    </a>
+                    <div class="d-flex gap-4 justify-content-center justify-content-lg-start mt-4">
+                        <a href="https://facebook.com/vivavivu" target="_blank"
+                            class="text-white fs-3 opacity-80 hover-opacity-100">
+                            <img src="https://play-lh.googleusercontent.com/KCMTYuiTrKom4Vyf0G4foetVOwhKWzNbHWumV73IXexAIy5TTgZipL52WTt8ICL-oIo"
+                                alt="Facebook" style="width: 40px; height: 40px; border-radius: 50%;">
+                        </a>
+                        <a href="https://zalo.me/0866849040" target="_blank"
+                            class="text-white fs-3 opacity-80 hover-opacity-100">
+                            <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a1/a6/5f/a1a65fcc-2623-16f9-b2e5-1f248a2f9ed9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/230x0w.webp"
+                                alt="Zalo" style="width: 40px; height: 40px; border-radius: 50%;">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Liên hệ -->
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-4 text-warning">Liên hệ</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="ri-map-pin-line text-warning me-3"></i>
+                            279 Nguyễn Tri Phương, Phường Diên Hồng, TP.HCM</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="ri-mail-line text-warning me-3"></i>
+                            support@vivavivu.com
+                        </li>
+                        <li class="mb-3">
+                            <i class="ri-phone-line text-warning me-3"></i>
+                            086 684 9040
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Hỗ trợ khách hàng -->
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-4 text-warning">Hỗ trợ khách hàng</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Câu hỏi thường gặp
+                        </li>
+                        <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Chính sách bảo mật
+                        </li>
+                        <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Điều khoản sử dụng
+                        </li>
+                        <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Hướng dẫn thanh toán
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Giờ làm việc -->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="fw-bold mb-4 text-warning">Giờ làm việc</h5>
+
+                    <div class="text-light" style="font-size: 0.95rem;">
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>T2 – T6</span>
+                            <span class="fw-bold">08:00-18:00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>T7</span>
+                            <span class="fw-bold">08:00-12:00</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-warning fw-bold">
+                            <span>Chủ nhật</span>
+                            <span>Nghỉ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <hr class="my-5 border-secondary opacity-20">
+                <div class="text-center small opacity-70">
+                    © 2025 VivaVivu Travel. All rights reserved.
                 </div>
             </div>
-
-            <!-- Liên hệ -->
-            <div class="col-lg-3 col-md-6">
-                <h5 class="fw-bold mb-4 text-warning">Liên hệ</h5>
-                <ul class="list-unstyled small">
-                    <li class="mb-3 d-flex align-items-center">
-                        <i class="ri-map-pin-line text-warning me-3"></i>
-                        279 Nguyễn Tri Phương, Phường Diên Hồng, TP.HCM</span>
-                    </li>
-                    <li class="mb-3">
-                        <i class="ri-mail-line text-warning me-3"></i>
-                        support@vivavivu.com
-                    </li>
-                    <li class="mb-3">
-                        <i class="ri-phone-line text-warning me-3"></i>
-                        086 684 9040
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Hỗ trợ khách hàng -->
-            <div class="col-lg-3 col-md-6">
-                <h5 class="fw-bold mb-4 text-warning">Hỗ trợ khách hàng</h5>
-                <ul class="list-unstyled small">
-                    <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Câu hỏi thường gặp</li>
-                    <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Chính sách bảo mật</li>
-                    <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Điều khoản sử dụng</li>
-                    <li class="mb-2 text-success"><i class="ri-checkbox-circle-line me-2"></i>Hướng dẫn thanh toán</li>
-                </ul>
-            </div>
-
-            <!-- Giờ làm việc -->
-            <div class="col-lg-2 col-md-6">
-    <h5 class="fw-bold mb-4 text-warning">Giờ làm việc</h5>
-    
-    <div class="text-light" style="font-size: 0.95rem;">
-        <div class="d-flex justify-content-between mb-3">
-            <span>T2 – T6</span>
-            <span class="fw-bold">08:00-18:00</span>
-        </div>
-        <div class="d-flex justify-content-between mb-3">
-            <span>T7</span>
-            <span class="fw-bold">08:00-12:00</span>
-        </div>
-        <div class="d-flex justify-content-between text-warning fw-bold">
-            <span>Chủ nhật</span>
-            <span>Nghỉ</span>
-        </div>
-    </div>
-</div>
-
-        <!-- Copyright -->
-        <hr class="my-5 border-secondary opacity-20">
-        <div class="text-center small opacity-70">
-            © 2025 VivaVivu Travel. All rights reserved.
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -213,4 +258,5 @@
     <script src="~/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

@@ -1,0 +1,108 @@
+@using ToursAndTravelsManagement.ViewModels
+@model RegisterViewModel // Hoặc dùng Model chứa thông tin cá nhân
+
+@{
+    ViewData["Title"] = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Giữ lại Header/Footer
+}
+
+@* Cần đảm bảo bạn đã thêm Font Awesome vào _Layout để hiển thị icons *@
+
+<div class="profile-page-container container my-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card sidebar-nav shadow-sm border-0 rounded-4">
+                <div class="card-body text-center py-4 bg-light-orange-user">
+                                        <h5 class="card-title mt-3">@Model.FirstName @Model.LastName</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item active list-item-custom">
+                        <i class="fas fa-user-alt me-2"></i> Thông tin tài khoản
+                    </li>
+                    <li class="list-group-item list-item-custom">
+                        <i class="fas fa-chart-line me-2"></i> Dashboard
+                    </li>
+                    <li class="list-group-item text-danger list-item-custom">
+                        <i class="fas fa-sign-out-alt me-2"></i> Đăng xuất
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card profile-card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-white border-bottom-0 pt-4">
+                    <h4 class="mb-0">Thông tin cá nhân</h4>
+                    <p class="text-muted">Quản lý thông tin hồ sơ của bạn để bảo mật tài khoản</p>
+                </div>
+                <div class="card-body">
+                    <form asp-action="UpdateProfile" method="post">
+                        
+                        <div class="d-flex justify-content-end mb-4">
+                            <button type="button" class="btn btn-sm btn-light-edit"><i class="fas fa-pencil-alt"></i></button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-4">
+                                <label class="control-label">Họ và tên</label>
+                                <input asp-for="FirstName" class="form-control" value="@Model.FirstName @Model.LastName" readonly />
+                            </div>
+                            
+                            <div class="col-md-6 form-group mb-4">
+                                <label class="control-label">Email</label>
+                                <input asp-for="Email" class="form-control" value="@Model.Email" readonly />
+                            </div>
+
+                            <div class="col-md-6 form-group mb-4">
+                                <label class="control-label">Ngày sinh</label>
+                                <input asp-for="DateOfBirth" type="text" class="form-control" 
+       value="@(Model.DateOfBirth == default(DateTime) ? "N/A" : Model.DateOfBirth.ToString("dd/MM/yyyy"))" 
+       readonly />
+                            </div>
+                            
+                            <div class="col-md-6 form-group mb-4">
+                                <label class="control-label">Giới tính</label>
+                                <input class="form-control" value="Nam" readonly />
+                            </div>
+
+                            <div class="col-md-6 form-group mb-4">
+                                <label class="control-label">Số điện thoại cá nhân</label>
+                                <input class="form-control" value="0912 345 678" readonly />
+                            </div>
+                            
+                            <div class="col-md-6 form-group mb-4 highlight-field-profile">
+                                <label class="control-label">Số điện thoại (liên hệ khẩn cấp)</label>
+                                <input class="form-control" value="0912 345 678" />
+                            </div>
+
+                            <div class="col-md-6 form-group mb-4">
+                                <label class="control-label">Chức vụ</label>
+                                <input class="form-control" value="Quản lý" readonly />
+                            </div>
+
+                            <div class="col-md-6 form-group mb-4">
+                                <label class="control-label">Phòng</label>
+                                <input class="form-control" value="Kinh doanh" readonly />
+                            </div>
+                            
+                            <div class="col-md-12 form-group mb-4">
+                                <label class="control-label">Địa chỉ</label>
+                                <input asp-for="Address" class="form-control" value="@Model.Address, @Model.City, @Model.Country" readonly />
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-update-profile">Cập nhật thông tin</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

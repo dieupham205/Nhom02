@@ -1,0 +1,117 @@
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Thông tin cá nhân";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin-profile.css" />
+}
+
+<div class="admin-page">
+    <div class="ap-wrap">
+        <aside class="ap-sidebar">
+            <div class="ap-card">
+                <img src="~/images/avatar3.jpg"
+                     alt="Avatar"
+                     class="ap-avatar">
+                <div class="ap-name">Nguyễn Văn A</div>
+
+                <nav class="ap-menu">
+                    <a class="active" href="#">Thông tin tài khoản</a>
+                    <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                    <a class="logout" href="#">Đăng xuất</a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="ap-main">
+            <div class="ap-panel">
+                <div class="ap-head">
+                    <div>
+                        <h2>Thông tin cá nhân</h2>
+                        <p>Quản lý thông tin hồ sơ của bạn để bảo mật tài khoản</p>
+                    </div>
+
+                    <button class="ap-edit" type="button" id="btnEdit" aria-label="Chỉnh sửa">✎</button>
+                </div>
+
+                <form class="ap-form" id="profileForm">
+                    <div class="ap-grid">
+                        <div class="ap-field">
+                            <label>Họ và tên</label>
+                            <input name="FullName" value="Nguyễn Văn A" disabled />
+                        </div>
+
+                        <div class="ap-field">
+                            <label>Email</label>
+                            <input name="Email" value="nguyenvana@example.com" disabled />
+                        </div>
+
+                        <div class="ap-field">
+                            <label>Ngày sinh</label>
+                            <input name="Dob" value="10/12/1995" disabled />
+                        </div>
+
+                        <div class="ap-field">
+                            <label>Giới tính</label>
+                            <input name="Gender" value="Nam" disabled />
+                        </div>
+
+                        <div class="ap-field">
+                            <label>Số điện thoại cá nhân</label>
+                            <input name="Phone" value="0912 345 678" disabled />
+                        </div>
+
+                        <div class="ap-field">
+                            <label>Số điện thoại người thân (liên hệ khẩn cấp)</label>
+                            <input name="EmergencyPhone" value="0912 345 678" disabled />
+                        </div>
+
+                        <div class="ap-field">
+                            <label>Chức vụ</label>
+                            <input name="Role" value="Quản trị viên" disabled />
+                        </div>
+
+                        <div class="ap-field">
+                            <label>Phòng</label>
+                            <input name="Dept" value="Nguyễn Văn A" disabled />
+                        </div>
+<div class="ap-field ap-full">
+                            <label>Địa chỉ</label>
+                            <input name="Address" value="123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh" disabled />
+                        </div>
+                    </div>
+
+                    <div class="ap-actions">
+                        <button class="ap-save" type="submit" id="btnSave" disabled>Cập nhật thông tin</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    const btnEdit = document.getElementById('btnEdit');
+    const btnSave = document.getElementById('btnSave');
+    const form = document.getElementById('profileForm');
+
+    function setEditable(editable){
+        form.querySelectorAll('input').forEach(i => i.disabled = !editable);
+        btnSave.disabled = !editable;
+        btnEdit.classList.toggle('active', editable);
+    }
+
+    btnEdit?.addEventListener('click', () => {
+        const isEditing = btnEdit.classList.contains('active');
+        setEditable(!isEditing);
+    });
+
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        setEditable(false);
+        alert('Đã lưu (demo front-end).');
+    });
+</script>
+}

@@ -67,6 +67,12 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult About()
+{
+    ViewData["IsFullWidth"] = true;
+    return View();
+}
+
 
 
 

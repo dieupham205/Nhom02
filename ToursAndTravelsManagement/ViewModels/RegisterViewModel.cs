@@ -31,6 +31,7 @@ namespace ToursAndTravelsManagement.ViewModels
         [Required]
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
+        // Thêm dấu ? để biến nó thành kiểu có thể null (nullable type)
         public DateTime DateOfBirth { get; set; }
 
         [Required]
