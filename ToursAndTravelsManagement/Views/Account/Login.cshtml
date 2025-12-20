@@ -12,28 +12,21 @@
         
         <form asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
             <div asp-validation-summary="All" class="text-danger text-center mb-3"></div>
-            
-            <div class="d-flex mb-4 login-tabs-group">
-                <button type="button" class="btn btn-tab flex-fill active" id="tab-email">Email</button>
-                <button type="button" class="btn btn-tab flex-fill" id="tab-phone">Số điện thoại</button>
-            </div>
 
+            <!-- EMAIL -->
             <div id="field-email" class="form-group mb-3 login-field active-field">
                 <input asp-for="Email" class="form-control" placeholder="Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div id="field-phone" class="form-group mb-3 login-field">
-                <label for="PhoneNumber" class="form-label">Số điện thoại</label>
-                <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="0912 345 678" />
-            </div>
-
+             <!-- PASSWORD -->
             <div class="form-group mb-4">
                 <label asp-for="Password" class="form-label">Mật khẩu</label>
                 <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
+              <!-- SUBMIT -->
             <div class="form-group mt-4">
                 <button type="submit" class="btn btn-custom-submit w-100">Đăng nhập</button>
             </div>
@@ -51,31 +44,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
-    <script>
-        // JavaScript để xử lý việc chuyển đổi giữa Email và Số điện thoại
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabEmail = document.getElementById('tab-email');
-            const tabPhone = document.getElementById('tab-phone');
-            const fieldEmail = document.getElementById('field-email');
-            const fieldPhone = document.getElementById('field-phone');
-            
-            // Ban đầu ẩn trường Phone
-            fieldPhone.style.display = 'none';
-
-            tabEmail.addEventListener('click', function() {
-                tabEmail.classList.add('active');
-                tabPhone.classList.remove('active');
-                fieldEmail.style.display = 'block';
-                fieldPhone.style.display = 'none';
-            });
-
-            tabPhone.addEventListener('click', function() {
-                tabPhone.classList.add('active');
-                tabEmail.classList.remove('active');
-                fieldPhone.style.display = 'block';
-                fieldEmail.style.display = 'none';
-            });
-        });
-    </script>
 }

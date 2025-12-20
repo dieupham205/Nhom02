@@ -28,6 +28,9 @@ namespace ToursAndTravelsManagement.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        public string? AvatarUrl { get; set; }
+        public IFormFile? AvatarFile { get; set; }
+
         [Required]
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]

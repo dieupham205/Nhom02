@@ -4,75 +4,107 @@
     ViewData["Title"] = "Booking Details";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
 
-<div>
-    <h4>Booking</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Tour.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Tour.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BookingDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BookingDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfParticipants)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfParticipants)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentMethod)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PaymentMethod)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentStatus)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PaymentStatus)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.BookingId" class="btn btn-primary">Edit</a> |
-    <a asp-action="Index" class="btn btn-default">Back to List</a>
+            <h2 class="text-center fw-bold mb-4">@ViewData["Title"]</h2>
+
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
+
+                    <dl class="row mb-0">
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Khách hàng</dt>
+                        <dd class="col-sm-8 fw-semibold">
+                            @Model.User?.UserName
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Tour</dt>
+                        <dd class="col-sm-8">
+                            @Model.Tour?.Name
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Ngày đặt</dt>
+                        <dd class="col-sm-8">
+                            @Model.BookingDate.ToString("dd/MM/yyyy")
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Số người</dt>
+                        <dd class="col-sm-8">
+                            @Model.NumberOfParticipants
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Tổng tiền</dt>
+                        <dd class="col-sm-8 fw-bold text-danger">
+                            @Model.TotalPrice.ToString("N0") đ
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Trạng thái booking</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-info">
+                                @Model.Status
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Hình thức thanh toán</dt>
+                        <dd class="col-sm-8">
+                            @Model.PaymentMethod
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Trạng thái thanh toán</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.PaymentStatus.ToString() == "Paid")
+                            {
+                                <span class="badge bg-success">Đã thanh toán</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Chưa thanh toán</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Người tạo</dt>
+                        <dd class="col-sm-8">
+                            @Model.CreatedBy
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Ngày tạo</dt>
+                        <dd class="col-sm-8">
+                            @Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted fw-semibold">Trạng thái</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success">Hoạt động</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Ngưng</span>
+                            }
+                        </dd>
+
+                    </dl>
+
+                    <hr class="my-4" />
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                            ← Back
+                        </a>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@Model.BookingId"
+                           class="btn btn-primary px-5">
+                            Edit
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

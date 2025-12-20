@@ -1,76 +1,113 @@
 ﻿@using ToursAndTravelsManagement.Common
 @model PaginatedList<ToursAndTravelsManagement.Models.Tour>
+
 @{
     ViewData["Title"] = "Quản lý Tours";
 }
 
 <div class="container-fluid">
-    <h1 class="mt-4 mb-4">Tours</h1>
 
-    <div class="row mb-4">
-        <div class="col-12">
-            <a asp-action="ExportPdf" class="btn btn-secondary mb-2 mr-2">Export to PDF</a>
-            <a asp-action="ExportExcel" class="btn btn-secondary mb-2">Export to Excel</a>
-            <a asp-action="Create" class="btn btn-warning mb-2 mr-2">Create New</a>
+    <!-- ===== HEADER ===== -->
+    <div class="card shadow-xl mb-4">
+        <div class="card-body bg-gradient-primary text-white rounded-4">
+            <h1 class="mb-0 fw-bold text-white header-title">Quản lý Tour</h1>
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>TourId</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>StartDate</th>
-                    <th>EndDate</th>
-                    <th>Price</th>
-                    <th>MaxParticipants</th>
-                    <th>Destination</th>
-                    <th>CreatedBy</th>
-                    <th>CreatedDate</th>
-                    <th>IsActive</th>
-                    <th>Lịch trình</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.TourId)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                        <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                        <td>@Html.DisplayFor(modelItem => item.MaxParticipants)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Destination.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
-                        <td>
-                                <a asp-controller="TourItineraries"
-                                asp-action="Index"
-                                asp-route-tourId="@item.TourId"
-                                class="btn btn-sm btn-outline-success">
-                                Lịch trình
-                                </a>
-                        </td>                        
-                        <td>
-                            <div class="btn-group" role="group">
-                                <a asp-action="Edit" asp-route-id="@item.TourId" class="btn btn-sm btn-outline-primary">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.TourId" class="btn btn-sm btn-outline-info">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.TourId" class="btn btn-sm btn-outline-danger">Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <!-- ===== ACTION BUTTONS ===== -->
+    <div class="mb-4 d-flex flex-wrap gap-2">
+        <a asp-action="ExportPdf" class="btn btn-secondary hover-lift">
+            <i class="fas fa-file-pdf me-1"></i> Export PDF
+        </a>
+        <a asp-action="ExportExcel" class="btn btn-secondary hover-lift">
+            <i class="fas fa-file-excel me-1"></i> Export Excel
+        </a>
+        <a asp-action="Create" class="btn btn-warning hover-lift">
+            <i class="fas fa-plus me-1"></i> Create New
+        </a>
     </div>
 
-    <nav aria-label="Page navigation">
+    <!-- ===== TABLE ===== -->
+    <div class="card shadow-xl">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle mb-0">
+                <thead class="bg-light-purple">
+                    <tr class="text-primary">
+                        <th>TourId</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Price</th>
+                        <th>Max</th>
+                        <th>Destination</th>
+                        <th>Type</th>
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                        <th>Active</th>
+                        <th>Schedule</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-row-hover hover-lift">
+                            <td>@item.TourId</td>
+                            <td class="fw-semibold">@item.Name</td>
+                            <td class="text-muted">@item.Description</td>
+                            <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                            <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                            <td class="fw-bold text-danger">@item.Price.ToString("N0")đ</td>
+                            <td>@item.MaxParticipants</td>
+                            <td>@item.Destination?.Name</td>
+                            <td>
+                                @if (item.Destination?.IsDomestic == true)
+                                {
+                                    <span class="badge bg-success">Nội địa</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary">Quốc tế</span>
+                                }
+                            </td>
+                            <td>@item.CreatedBy</td>
+                            <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Inactive</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-controller="TourItineraries"
+                                   asp-action="Index"
+                                   asp-route-tourId="@item.TourId"
+                                   class="btn btn-sm btn-outline-success hover-lift">
+                                    Lịch trình
+                                </a>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="Edit" asp-route-id="@item.TourId" class="btn btn-sm btn-outline-primary">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.TourId" class="btn btn-sm btn-outline-info">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.TourId" class="btn btn-sm btn-outline-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== PAGINATION ===== -->
+    <nav class="mt-4">
         <ul class="pagination justify-content-center">
             @{
                 var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
@@ -95,6 +132,7 @@
         </ul>
     </nav>
 </div>
+
 <style>
     :root {
         --primary-purple: #2c3e88;
@@ -102,6 +140,11 @@
         --warning-orange: #ff9800;
         --light-purple: #f8f5ff;
         --bg-light-purple: #e8e0ff;
+    }
+
+    .header-title {
+    letter-spacing: 1px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
 
     .bg-gradient-primary {

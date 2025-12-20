@@ -78,7 +78,7 @@ public class Program
             app.UseExceptionHandler("/Home/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
-        }
+        } 
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
@@ -89,10 +89,10 @@ public class Program
         app.UseAuthorization();
 
         // Use the global exception handling middleware
-        app.UseMiddleware<ExceptionHandlingMiddleware>();
+        //app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         // Use the global error handling middleware
-        app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+        //app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 
         app.MapControllerRoute(
             name: "default",
@@ -102,6 +102,17 @@ public class Program
         {
             var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
             await seeder.SeedRolesAndAdminAsync();
+        }
+
+        using (var scope = app.Services.CreateScope())
+        {
+            // Seed role + admin
+            var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
+            await seeder.SeedRolesAndAdminAsync();
+
+            // Seed booking cho Dashboard
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            DashboardSeeder.SeedBookings(context);
         }
 
         app.Run();

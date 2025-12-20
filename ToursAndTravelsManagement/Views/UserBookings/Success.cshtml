@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Đặt tour thành công";
+    Layout = "~/Views/Shared/_AnotherLayout.cshtml";
+}
+
+
+
+
+<div class="container py-5 text-center">
+    <div class="card border-0 shadow-lg rounded-4 p-5">
+
+
+
+
+        <div class="mb-4">
+            <i class="ri-checkbox-circle-fill text-success display-1"></i>
+        </div>
+
+
+
+
+        <h2 class="fw-bold mb-3">Đặt tour thành công!</h2>
+
+
+
+
+        <p class="text-muted fs-5 mb-4">
+            Cảm ơn bạn đã đặt tour. Vé điện tử đã được gửi về email của bạn.
+        </p>
+
+
+
+
+        <div class="d-flex justify-content-center gap-3">
+            <a asp-action="MyBookings"
+               class="btn btn-primary rounded-pill px-4 py-2">
+                Xem tour đã đặt
+            </a>
+
+
+
+
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                Đặt thêm tour
+            </a>
+        </div>
+
+
+
+
+    </div>
+</div>

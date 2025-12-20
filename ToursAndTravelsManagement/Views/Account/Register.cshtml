@@ -2,62 +2,86 @@
 @model RegisterViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Giữ Header / Footer giống Login
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="login-container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="login-box p-4 shadow-sm">
+        <h2 class="text-center mb-4">Đăng ký tài khoản</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger text-center mb-3"></div>
+
+            <!-- EMAIL -->
+            <div class="form-group mb-3">
+                <input asp-for="Email" class="form-control" placeholder="Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+
+            <!-- PASSWORD -->
+            <div class="form-group mb-3">
+                <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
+
+            <!-- CONFIRM PASSWORD -->
+            <div class="form-group mb-3">
+                <input asp-for="ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+
+            <hr class="my-4" />
+
+            <!-- FIRST + LAST NAME -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <input asp-for="FirstName" class="form-control" placeholder="Họ" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <input asp-for="LastName" class="form-control" placeholder="Tên" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
+
+            <!-- DATE OF BIRTH -->
+            <div class="form-group mb-3">
+                <input asp-for="DateOfBirth" type="date" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+
+            <!-- ADDRESS -->
+            <div class="form-group mb-3">
+                <input asp-for="Address" class="form-control" placeholder="Địa chỉ" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
+
+            <!-- CITY -->
+            <div class="form-group mb-3">
+                <input asp-for="City" class="form-control" placeholder="Thành phố" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
+
+            <!-- COUNTRY -->
+            <div class="form-group mb-4">
+                <input asp-for="Country" class="form-control" placeholder="Quốc gia" />
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
+
+            <!-- SUBMIT -->
             <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <button type="submit" class="btn btn-custom-submit w-100">
+                    Đăng ký
+                </button>
+            </div>
+
+            <!-- LINK LOGIN -->
+            <div class="form-group text-center mt-3">
+                <p>
+                    Đã có tài khoản?
+                    <a asp-action="Login">Đăng nhập</a>
+                </p>
             </div>
         </form>
     </div>

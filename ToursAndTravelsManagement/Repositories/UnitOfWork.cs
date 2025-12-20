@@ -12,6 +12,8 @@ public class UnitOfWork : IUnitOfWork
     private IGenericRepository<Tour> _tourRepository;
     private IGenericRepository<Destination> _destinationRepository;
     private IGenericRepository<TourItinerary> _tourItineraryRepository;
+    private IGenericRepository<FavoriteTour> _favoriteTourRepository;
+    private IGenericRepository<Voucher> _voucherRepository;
 
     public UnitOfWork(ApplicationDbContext context)
     {
@@ -66,6 +68,27 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IGenericRepository<FavoriteTour> FavoriteTourRepository
+    {
+        get
+        {
+            if (_favoriteTourRepository == null)
+            {
+                _favoriteTourRepository = new GenericRepository<FavoriteTour>(_context);
+            }
+            return _favoriteTourRepository;
+        }
+    }
+
+    public IGenericRepository<Voucher> VoucherRepository
+    {
+        get
+        {
+            if (_voucherRepository == null)
+                _voucherRepository = new GenericRepository<Voucher>(_context);
+            return _voucherRepository;
+        }
+    }
 
     public async Task CompleteAsync()
     {

@@ -1,63 +1,73 @@
-﻿@model Tour
+﻿@model ToursAndTravelsManagement.Models.Tour
 
 @{
-    ViewData["Title"] = "Delete Tour";
+    ViewData["Title"] = "Xóa tour";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Tour</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MaxParticipants)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MaxParticipants)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Destination)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Destination.Name)
-        </dd>
-    </dl>
+            <div class="card shadow-xl border-0 rounded-4">
+                <div class="card-body p-4">
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="TourId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-default">Back to List</a>
-    </form>
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold text-danger mb-2">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Xác nhận xóa tour
+                        </h3>
+                        <p class="text-muted mb-0">
+                            Hành động này <strong>không thể hoàn tác</strong>.
+                            Vui lòng kiểm tra lại thông tin trước khi tiếp tục.
+                        </p>
+                    </div>
+
+                    <hr />
+
+                    <!-- Tour Info -->
+                    <dl class="row mb-4">
+                        <dt class="col-sm-4 text-muted">Tên tour</dt>
+                        <dd class="col-sm-8 fw-semibold">@Model.Name</dd>
+
+                        <dt class="col-sm-4 text-muted">Mô tả</dt>
+                        <dd class="col-sm-8">@Model.Description</dd>
+
+                        <dt class="col-sm-4 text-muted">Ngày bắt đầu</dt>
+                        <dd class="col-sm-8">@Model.StartDate.ToString("dd/MM/yyyy")</dd>
+
+                        <dt class="col-sm-4 text-muted">Ngày kết thúc</dt>
+                        <dd class="col-sm-8">@Model.EndDate.ToString("dd/MM/yyyy")</dd>
+
+                        <dt class="col-sm-4 text-muted">Giá</dt>
+                        <dd class="col-sm-8 text-danger fw-bold">
+                            @Model.Price.ToString("N0")đ
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted">Số người tối đa</dt>
+                        <dd class="col-sm-8">@Model.MaxParticipants</dd>
+
+                        <dt class="col-sm-4 text-muted">Điểm đến</dt>
+                        <dd class="col-sm-8">@Model.Destination?.Name</dd>
+                    </dl>
+
+                    <!-- Actions -->
+                    <form asp-action="Delete" method="post" class="d-flex justify-content-between">
+                        <input type="hidden" asp-for="TourId" />
+
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
+                            ← Quay lại
+                        </a>
+
+                        <button type="submit" class="btn btn-danger rounded-pill px-4">
+                            <i class="fas fa-trash-alt me-1"></i>
+                            Xóa tour
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

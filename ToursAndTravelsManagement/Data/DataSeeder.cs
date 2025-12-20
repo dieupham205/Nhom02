@@ -114,7 +114,7 @@ namespace ToursAndTravelsManagement.Data
                 .RuleFor(b => b.NumberOfParticipants, f => f.Random.Int(1, 5))
                 .RuleFor(b => b.TotalPrice, (f, b) => b.NumberOfParticipants * f.Random.Decimal(100, 1000))
                 .RuleFor(b => b.Status, f => f.PickRandom<BookingStatus>())
-                .RuleFor(b => b.PaymentMethod, f => f.PickRandom(new[] { "Credit Card", "Debit Card", "PayPal" }))
+                .RuleFor(b => b.PaymentMethod, f => f.PickRandom<PaymentMethod>())
                 .RuleFor(b => b.PaymentStatus, f => f.PickRandom<PaymentStatus>())
                 .RuleFor(b => b.CreatedBy, f => f.Person.FullName)
                 .RuleFor(b => b.CreatedDate, f => f.Date.Past(1))

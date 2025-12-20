@@ -1,117 +1,162 @@
+@using ToursAndTravelsManagement.ViewModels
+@model RegisterViewModel
+
 @{
-    Layout = "_AuthLayout";
     ViewData["Title"] = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/admin-profile.css" />
-}
+<div class="profile-page-container container my-5">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-md-4">
+            <div class="card sidebar-nav shadow-sm border-0 rounded-4">
+                <div class="card-body text-center py-4 bg-light-orange-user">
+                    <!-- Đặt avatar -->
+                    @{
+                        var avatarSrc = string.IsNullOrEmpty(Model.AvatarUrl)
+                            ? Url.Content("~/images/avatar3.png")
+                            : Model.AvatarUrl;
+                    }
 
-<div class="admin-page">
-    <div class="ap-wrap">
-        <aside class="ap-sidebar">
-            <div class="ap-card">
-                <img src="~/images/avatar3.jpg"
-                     alt="Avatar"
-                     class="ap-avatar">
-                <div class="ap-name">Nguyễn Văn A</div>
+                    <img src="@avatarSrc"
+                        class="rounded-circle mb-3"
+                        style="width:120px;height:120px;object-fit:cover;"
+                        alt="Avatar" />
 
-                <nav class="ap-menu">
-                    <a class="active" href="#">Thông tin tài khoản</a>
-                    <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
-                    <a class="logout" href="#">Đăng xuất</a>
-                </nav>
-            </div>
-        </aside>
-
-        <main class="ap-main">
-            <div class="ap-panel">
-                <div class="ap-head">
-                    <div>
-                        <h2>Thông tin cá nhân</h2>
-                        <p>Quản lý thông tin hồ sơ của bạn để bảo mật tài khoản</p>
-                    </div>
-
-                    <button class="ap-edit" type="button" id="btnEdit" aria-label="Chỉnh sửa">✎</button>
+                    <h5 class="card-title mt-3">
+                        @Model.FirstName @Model.LastName
+                    </h5>
                 </div>
 
-                <form class="ap-form" id="profileForm">
-                    <div class="ap-grid">
-                        <div class="ap-field">
-                            <label>Họ và tên</label>
-                            <input name="FullName" value="Nguyễn Văn A" disabled />
-                        </div>
-
-                        <div class="ap-field">
-                            <label>Email</label>
-                            <input name="Email" value="nguyenvana@example.com" disabled />
-                        </div>
-
-                        <div class="ap-field">
-                            <label>Ngày sinh</label>
-                            <input name="Dob" value="10/12/1995" disabled />
-                        </div>
-
-                        <div class="ap-field">
-                            <label>Giới tính</label>
-                            <input name="Gender" value="Nam" disabled />
-                        </div>
-
-                        <div class="ap-field">
-                            <label>Số điện thoại cá nhân</label>
-                            <input name="Phone" value="0912 345 678" disabled />
-                        </div>
-
-                        <div class="ap-field">
-                            <label>Số điện thoại người thân (liên hệ khẩn cấp)</label>
-                            <input name="EmergencyPhone" value="0912 345 678" disabled />
-                        </div>
-
-                        <div class="ap-field">
-                            <label>Chức vụ</label>
-                            <input name="Role" value="Quản trị viên" disabled />
-                        </div>
-
-                        <div class="ap-field">
-                            <label>Phòng</label>
-                            <input name="Dept" value="Nguyễn Văn A" disabled />
-                        </div>
-<div class="ap-field ap-full">
-                            <label>Địa chỉ</label>
-                            <input name="Address" value="123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh" disabled />
-                        </div>
-                    </div>
-
-                    <div class="ap-actions">
-                        <button class="ap-save" type="submit" id="btnSave" disabled>Cập nhật thông tin</button>
-                    </div>
-                </form>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item active list-item-custom">
+                        <i class="fas fa-user-alt me-2"></i> Thông tin tài khoản
+                    </li>
+                    <li class="list-group-item list-item-custom">
+                        <a asp-controller="Admin"
+                        asp-action="Dashboard"
+                        class="text-decoration-none text-dark">
+                            <i class="fas fa-chart-line me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="list-group-item text-danger list-item-custom">
+                        <form asp-controller="Account" asp-action="Logout" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-link text-danger p-0">
+                                <i class="fas fa-sign-out-alt me-2"></i> Đăng xuất
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </div>
-        </main>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-8">
+            <div class="card profile-card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-white border-bottom-0 pt-4">
+                    <h4 class="mb-0">Thông tin cá nhân</h4>
+                    <p class="text-muted">
+                        Quản lý thông tin hồ sơ của bạn để bảo mật tài khoản
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="UpdateProfile"
+                            method="post"
+                            enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+
+                <!-- Thông báo thành công -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <!-- Upload Avatar -->
+                <div class="mb-4">
+                    <label class="form-label">Ảnh đại diện</label>
+                    <input asp-for="AvatarFile"
+                        type="file"
+                        class="form-control"
+                        accept="image/*" />
+                </div>
+
+                        <div class="row">
+                            <!-- FIRST NAME -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Họ</label>
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <!-- LAST NAME -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Tên</label>
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                            <!-- EMAIL -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Email</label>
+                                <input asp-for="Email" class="form-control" readonly />
+                            </div>
+
+                            <!-- DOB -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Ngày sinh</label>
+                                <input asp-for="DateOfBirth" type="date" class="form-control" />
+                            </div>
+
+                            <!-- ADDRESS -->
+                            <div class="col-md-12 form-group mb-4">
+                                <label>Địa chỉ</label>
+                                <input asp-for="Address" class="form-control" />
+                            </div>
+
+                            <!-- CITY -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Thành phố</label>
+                                <input asp-for="City" class="form-control" />
+                            </div>
+
+                            <!-- COUNTRY -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Quốc gia</label>
+                                <input asp-for="Country" class="form-control" />
+                            </div>
+
+                            <!-- PHÒNG BAN -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Phòng ban</label>
+                                <input class="form-control" value="Kinh doanh" readonly />
+                            </div>
+
+                            <!-- CHỨC VỤ -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label>Chức vụ</label>
+                                <input class="form-control" value="Quản lý" readonly />
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-update-profile">
+                                Cập nhật thông tin
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-<script>
-    const btnEdit = document.getElementById('btnEdit');
-    const btnSave = document.getElementById('btnSave');
-    const form = document.getElementById('profileForm');
-
-    function setEditable(editable){
-        form.querySelectorAll('input').forEach(i => i.disabled = !editable);
-        btnSave.disabled = !editable;
-        btnEdit.classList.toggle('active', editable);
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
-    btnEdit?.addEventListener('click', () => {
-        const isEditing = btnEdit.classList.contains('active');
-        setEditable(!isEditing);
-    });
-
-    form?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        setEditable(false);
-        alert('Đã lưu (demo front-end).');
-    });
-</script>
 }
