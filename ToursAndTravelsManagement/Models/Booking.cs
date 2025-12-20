@@ -28,7 +28,7 @@ public class Booking
     public BookingStatus Status { get; set; }
 
     [Required(ErrorMessage = "Payment Method is required")]
-    public string PaymentMethod { get; set; }
+    public PaymentMethod PaymentMethod { get; set; }
 
     [Required]
     public PaymentStatus PaymentStatus { get; set; }
@@ -38,4 +38,10 @@ public class Booking
     public DateTime CreatedDate { get; set; }
 
     public bool IsActive { get; set; }
+
+    public int? VoucherId { get; set; }
+    public Voucher Voucher { get; set; }
+
+    public decimal DiscountAmount { get; set; }
+    public decimal FinalPrice { get; set; }
 }

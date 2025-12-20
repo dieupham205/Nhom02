@@ -3,21 +3,35 @@ using Serilog;
 using System.Diagnostics;
 using ToursAndTravelsManagement.Models;
 using ToursAndTravelsManagement.Services.EmailService;
+using ToursAndTravelsManagement.Repositories.IRepositories;
 
 namespace ToursAndTravelsManagement.Controllers;
 
 public class HomeController : Controller
 {
     private readonly IEmailService _emailService;
+    private readonly IUnitOfWork _unitOfWork; // Lấy dữ liệu tour
 
-    public HomeController(IEmailService emailService)
+    public HomeController(IEmailService emailService, IUnitOfWork unitOfWork)
     {
         _emailService = emailService;
+        _unitOfWork = unitOfWork;
     }
+
     // GET: Home/Index
-    public IActionResult Index()
+    public async Task<IActionResult> Index() // Đổi thành async Task<IActionResult>
     {
         Log.Information("Home page (Index) accessed by user {UserId} at {Timestamp}", User.Identity?.Name, DateTime.Now);
+
+        // Lấy tour từ database 
+        var allTours = await _unitOfWork.TourRepository.GetAllAsync(
+            filter: null,            
+            includeProperties: "Destination" // Include để hiển thị tên điểm đến
+        );
+
+        // Truyền tour vào ViewBag để slider sử dụng
+        ViewBag.BestOfferTours = allTours ?? new List<Tour>();
+
         return View();
     }
 
@@ -67,13 +81,9 @@ public class HomeController : Controller
     {
         return View();
     }
-    public IActionResult About()
-{
-    ViewData["IsFullWidth"] = true;
-    return View();
-}
 
-
-
-
+    public IActionResult ComingSoon()
+    {
+        return View();
+    }
 }

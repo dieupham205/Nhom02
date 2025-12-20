@@ -93,12 +93,14 @@ namespace ToursAndTravelsManagement.Controllers
         // POST: Destinations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Country,City,ImageUrl,CreatedBy,CreatedDate,IsActive")] Destination destination)
+        public async Task<IActionResult> Create([Bind("Name,Description,IsDomestic,Country,City,ImageUrl,IsActive")] Destination destination)
         {
             var userName = User?.Identity?.Name ?? "Unknown User";
 
             if (ModelState.IsValid)
             {
+                destination.CreatedBy = userName;
+                destination.CreatedDate = DateTime.Now;
                 await _unitOfWork.DestinationRepository.AddAsync(destination);
                 await _unitOfWork.CompleteAsync();
 
@@ -135,7 +137,7 @@ namespace ToursAndTravelsManagement.Controllers
         // POST: Destinations/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DestinationId,Name,Description,Country,City,ImageUrl,CreatedBy,CreatedDate,IsActive")] Destination destination)
+        public async Task<IActionResult> Edit(int id, [Bind("DestinationId,Name,Description,IsDomestic,Country,City,ImageUrl,CreatedBy,CreatedDate,IsActive")] Destination destination)
         {
             var userName = User?.Identity?.Name ?? "Unknown User";
 
@@ -156,7 +158,7 @@ namespace ToursAndTravelsManagement.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DestinationExists(destination.DestinationId))
+                    if (!await DestinationExists(destination.DestinationId))
                     {
                         Log.Error("User {UserName} attempted to edit a non-existent Destination {DestinationId}", userName, id);
                         return NotFound();
@@ -217,9 +219,9 @@ namespace ToursAndTravelsManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DestinationExists(int id)
+        private async Task<bool> DestinationExists(int id)
         {
-            return _unitOfWork.DestinationRepository.GetByIdAsync(id) != null;
+            return await _unitOfWork.DestinationRepository.GetByIdAsync(id) != null;
         }
     }
 }

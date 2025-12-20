@@ -84,7 +84,31 @@ public class ToursController : Controller
         return View(tours);
     }
 
+// ================= CREATE TOUR BY TYPE =================
 
+// Tạo tour nội địa
+[Authorize(Policy = "RequireAdminRole")]
+public async Task<IActionResult> CreateDomestic()
+{
+    var destinations = await _unitOfWork.DestinationRepository
+        .GetAllAsync(d => d.IsDomestic && d.IsActive);
+
+    ViewBag.DestinationId = new SelectList(destinations, "DestinationId", "Name");
+
+    return View("Create");
+}
+
+// Tạo tour quốc tế
+[Authorize(Policy = "RequireAdminRole")]
+public async Task<IActionResult> CreateInternational()
+{
+    var destinations = await _unitOfWork.DestinationRepository
+        .GetAllAsync(d => !d.IsDomestic && d.IsActive);
+
+    ViewBag.DestinationId = new SelectList(destinations, "DestinationId", "Name");
+
+    return View("Create");
+}
 
     // GET: Tours/Create
     public async Task<IActionResult> Create()
@@ -101,12 +125,16 @@ public class ToursController : Controller
     // POST: Tours/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,Price,MaxParticipants,DestinationId,CreatedBy,CreatedDate,IsActive")] Tour tour)
+    public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,Price,MaxParticipants,DestinationId")] Tour tour)
     {
         var userName = User?.Identity?.Name ?? "Unknown User";
 
         if (ModelState.IsValid)
         {
+            tour.CreatedBy = userName;
+            tour.CreatedDate = DateTime.Now;
+            tour.IsActive = true;
+
             await _unitOfWork.TourRepository.AddAsync(tour);
             await _unitOfWork.CompleteAsync();
 
@@ -170,7 +198,7 @@ public class ToursController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TourExists(tour.TourId))
+                if (!await TourExists(tour.TourId))
                 {
                     Log.Error("User {UserName} attempted to edit a non-existent tour {TourId}", userName, id);
                     return NotFound();
@@ -234,47 +262,136 @@ public class ToursController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool TourExists(int id)
+    private async Task<bool> TourExists(int id)
     {
-        return _unitOfWork.TourRepository.GetByIdAsync(id) != null;
+        return await _unitOfWork.TourRepository.GetByIdAsync(id) != null;
     }
 
     [AllowAnonymous]
-    public IActionResult Domestic()
+    public async Task<IActionResult> Domestic(
+        string? destination,
+        int? month,
+        string? price
+    )
     {
         ViewData["Title"] = "Tour Nội Địa";
-        return View();
+
+        var tours = await _unitOfWork.TourRepository.GetAllAsync(
+            t => t.IsActive && t.Destination.IsDomestic,
+            includeProperties: "Destination"
+        );
+
+        // 🔹 Filter theo điểm đến
+        if (!string.IsNullOrEmpty(destination))
+        {
+            tours = tours
+                .Where(t => t.Destination.Name.Contains(destination))
+                .ToList();
+        }
+
+        // 🔹 Filter theo tháng
+        if (month.HasValue)
+        {
+            tours = tours
+                .Where(t => t.StartDate.Month == month.Value)
+                .ToList();
+        }
+
+        // 🔹 Filter theo giá
+        if (!string.IsNullOrEmpty(price))
+        {
+            tours = price switch
+            {
+                "under10" => tours.Where(t => t.Price < 10_000_000).ToList(),
+                "10to20" => tours.Where(t => t.Price >= 10_000_000 && t.Price <= 20_000_000).ToList(),
+                "20to30" => tours.Where(t => t.Price > 20_000_000 && t.Price <= 30_000_000).ToList(),
+                "over30" => tours.Where(t => t.Price > 30_000_000).ToList(),
+                _ => tours
+            };
+        }
+
+        return View(tours);
     }
 
     [AllowAnonymous]
-    public IActionResult International()
+    public async Task<IActionResult> International(
+        string? destination,
+        int? month,
+        string? price
+    )
     {
         ViewData["Title"] = "Tour Quốc Tế";
-        return View();
-    }
-    [AllowAnonymous]
 
-        // GET: Tours/Details/5
-    public async Task<IActionResult> Details(int? id)
+        var tours = await _unitOfWork.TourRepository.GetAllAsync(
+            t => t.IsActive && !t.Destination.IsDomestic,
+            includeProperties: "Destination"
+        );
+
+        if (!string.IsNullOrEmpty(destination))
+        {
+            tours = tours
+                .Where(t => t.Destination.Name.Contains(destination))
+                .ToList();
+        }
+
+        if (month.HasValue)
+        {
+            tours = tours
+                .Where(t => t.StartDate.Month == month.Value)
+                .ToList();
+        }
+
+        if (!string.IsNullOrEmpty(price))
+        {
+            tours = price switch
+            {
+                "under10" => tours.Where(t => t.Price < 10_000_000).ToList(),
+                "10to20" => tours.Where(t => t.Price >= 10_000_000 && t.Price <= 20_000_000).ToList(),
+                "20to30" => tours.Where(t => t.Price > 20_000_000 && t.Price <= 30_000_000).ToList(),
+                "over30" => tours.Where(t => t.Price > 30_000_000).ToList(),
+                _ => tours
+            };
+        }
+
+        return View(tours);
+    }
+
+[AllowAnonymous]
+// GET: Tours/Details/5
+public async Task<IActionResult> Details(int? id)
+{
+    var userName = User?.Identity?.Name ?? "Unknown User";
+
+    if (id == null)
     {
-        var userName = User?.Identity?.Name ?? "Unknown User";
-
-        if (id == null)
-        {
-            Log.Warning("User {UserName} tried to access Tour Details with null ID", userName);
-            return NotFound();
-        }
-
-        var tour = await _unitOfWork.TourRepository.GetByIdAsync(id.Value, "Destination");
-        if (tour == null)
-        {
-            Log.Warning("User {UserName} tried to access Tour Details with invalid ID {TourId}", userName, id);
-            return NotFound();
-        }
-
-        Log.Information("User {UserName} accessed details of Tour {TourId}", userName, id);
-        return View(tour);
+        Log.Warning("User {UserName} tried to access Tour Details with null ID", userName);
+        return NotFound();
     }
+
+    // 1️⃣ Lấy tour + destination
+    var tour = await _unitOfWork.TourRepository
+        .GetByIdAsync(id.Value, "Destination");
+
+    if (tour == null)
+    {
+        Log.Warning("User {UserName} tried to access Tour Details with invalid ID {TourId}", userName, id);
+        return NotFound();
+    }
+
+    // 2️⃣ LẤY LỊCH TRÌNH TOUR
+    var itineraries = await _unitOfWork.TourItineraryRepository
+        .GetAllAsync(i => i.TourId == id.Value);
+
+    // 3️⃣ GỬI SANG VIEW
+    ViewBag.Itineraries = itineraries
+        .OrderBy(i => i.DayNumber)
+        .ToList();
+
+    Log.Information("User {UserName} accessed details of Tour {TourId}", userName, id);
+
+    return View(tour);
+}
+
     [AllowAnonymous]
 [HttpGet]
 public async Task<IActionResult> PublicTours()

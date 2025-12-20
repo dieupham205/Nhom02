@@ -9,14 +9,17 @@ namespace ToursAndTravelsManagement.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IWebHostEnvironment _env;
+
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment env)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+             _env = env;
         }
 
         // GET: Account/Register
@@ -52,22 +55,9 @@ namespace ToursAndTravelsManagement.Controllers
                 {
                     Log.Information("User {Email} registered successfully.", user.Email);
 
-                    if (!await _roleManager.RoleExistsAsync(model.Role))
-                    {
-                        var role = new IdentityRole(model.Role);
-                        var roleResult = await _roleManager.CreateAsync(role);
-                        if (roleResult.Succeeded)
-                        {
-                            Log.Information("Role {Role} created successfully.", model.Role);
-                        }
-                        else
-                        {
-                            Log.Error("Role creation failed for {Role}.", model.Role);
-                        }
-                    }
-
-                    await _userManager.AddToRoleAsync(user, model.Role);
-                    Log.Information("User {Email} assigned to role {Role}.", user.Email, model.Role);
+                // Gán role mặc định là User
+                    await _userManager.AddToRoleAsync(user, "User");
+                    Log.Information("User {Email} assigned to role {Role}.", user.Email);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     Log.Information("User {Email} signed in after registration.", user.Email);
@@ -141,6 +131,51 @@ namespace ToursAndTravelsManagement.Controllers
                 Log.Information("Redirecting to home page.");
                 return RedirectToAction("Index", "Home");
             }
+        }
+        // POST: Account/UpdateProfile
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile(UpdateUserProfileViewModel model)
+
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.DateOfBirth = model.DateOfBirth;
+            user.Address = model.Address;
+
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("MyBookings", "UserBookings");
+        }
+
+        // POST: Account/UpdateAvatarUser
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAvatar(IFormFile AvatarFile)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            if (AvatarFile != null && AvatarFile.Length > 0)
+            {
+                var uploadPath = Path.Combine(_env.WebRootPath, "uploads", "avatars");
+                Directory.CreateDirectory(uploadPath);
+
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(AvatarFile.FileName)}";
+                var filePath = Path.Combine(uploadPath, fileName);
+
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await AvatarFile.CopyToAsync(stream);
+
+                user.AvatarUrl = "/uploads/avatars/" + fileName;
+                await _userManager.UpdateAsync(user);
+            }
+
+            return RedirectToAction("MyBookings", "UserBookings");
         }
     }
 }

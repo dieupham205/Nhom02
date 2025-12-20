@@ -13,6 +13,9 @@ public class Destination
     public string? Description { get; set; } = string.Empty;
 
     [Required]
+    public bool IsDomestic { get; set; }
+
+    [Required]
     public string Country { get; set; }
 
     [Required]

@@ -13,11 +13,18 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Tour> Tours { get; set; }
     public DbSet<Destination> Destinations { get; set; }
+    public DbSet<TourItinerary> TourItineraries { get; set; }
+    public DbSet<FavoriteTour> FavoriteTours { get; set; }
+    public DbSet<Voucher> Vouchers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Additional configurations if needed
+        modelBuilder.Entity<Booking>()
+            .HasOne(b => b.User)
+            .WithMany(u => u.Bookings)
+            .HasForeignKey(b => b.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

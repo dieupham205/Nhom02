@@ -100,7 +100,7 @@ public class BookingsController : Controller
     // POST: Bookings/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("UserId,TourId,BookingDate,NumberOfParticipants,TotalPrice,Status,PaymentMethod,PaymentStatus,CreatedBy,CreatedDate,IsActive")] Booking booking)
+    public async Task<IActionResult> Create([Bind("UserId,TourId,BookingDate,NumberOfParticipants,TotalPrice,Status,PaymentMethod,PaymentStatus,IsActive")] Booking booking)
     {
         if (ModelState.IsValid)
         {
