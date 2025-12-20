@@ -11,6 +11,7 @@ public class UnitOfWork : IUnitOfWork
     private IGenericRepository<Booking> _bookingRepository;
     private IGenericRepository<Tour> _tourRepository;
     private IGenericRepository<Destination> _destinationRepository;
+    private IGenericRepository<TourItinerary> _tourItineraryRepository;
 
     public UnitOfWork(ApplicationDbContext context)
     {
@@ -52,6 +53,19 @@ public class UnitOfWork : IUnitOfWork
             return _destinationRepository;
         }
     }
+
+    public IGenericRepository<TourItinerary> TourItineraryRepository
+    {
+        get
+        {
+            if (_tourItineraryRepository == null)
+            {
+                _tourItineraryRepository = new GenericRepository<TourItinerary>(_context);
+            }
+            return _tourItineraryRepository;
+        }
+    }
+
 
     public async Task CompleteAsync()
     {

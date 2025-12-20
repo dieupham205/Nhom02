@@ -13,6 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Tour> Tours { get; set; }
     public DbSet<Destination> Destinations { get; set; }
+    public DbSet<TourItinerary> TourItineraries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

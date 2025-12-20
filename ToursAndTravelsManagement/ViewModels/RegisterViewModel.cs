@@ -45,9 +45,5 @@ namespace ToursAndTravelsManagement.ViewModels
         [Required]
         [Display(Name = "Country")]
         public string Country { get; set; }
-
-        [Required]
-        [Display(Name = "Role")]
-        public string Role { get; set; }
     }
 }

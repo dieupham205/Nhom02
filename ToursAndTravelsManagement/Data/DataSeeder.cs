@@ -11,12 +11,18 @@ namespace ToursAndTravelsManagement.Data
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DataSeeder(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
-        {
-            _unitOfWork = unitOfWork;
-            _userManager = userManager;
-        }
+    public DataSeeder(
+        IUnitOfWork unitOfWork,
+        UserManager<ApplicationUser> userManager,
+        RoleManager<IdentityRole> roleManager)
+    {
+        _unitOfWork = unitOfWork;
+        _userManager = userManager;
+        _roleManager = roleManager;
+    }
+
 
         public async Task SeedDestinationsAsync(int numberOfDestinations)
         {
@@ -122,6 +128,42 @@ namespace ToursAndTravelsManagement.Data
             }
 
             await _unitOfWork.CompleteAsync();
+        }
+        public async Task SeedRolesAndAdminAsync()
+        {
+            string[] roles = { "Admin", "User" };
+
+            foreach (var role in roles)
+            {
+                if (!await _roleManager.RoleExistsAsync(role))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+
+            var adminEmail = "admin@tour.com";
+            var adminPassword = "Admin@123";
+
+            var adminUser = await _userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    FirstName = "System",
+                    LastName = "Admin",
+                    EmailConfirmed = true,
+                    IsActive = true,
+                    RegistrationDate = DateTime.Now
+                };
+
+                var result = await _userManager.CreateAsync(adminUser, adminPassword);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(adminUser, "Admin");
+                }
+            }
         }
     }
 }

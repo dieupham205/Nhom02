@@ -1,7 +1,7 @@
 ﻿@using ToursAndTravelsManagement.Common
 @model PaginatedList<ToursAndTravelsManagement.Models.Tour>
 @{
-    ViewData["Title"] = "Tours";
+    ViewData["Title"] = "Quản lý Tours";
 }
 
 <div class="container-fluid">
@@ -30,6 +30,7 @@
                     <th>CreatedBy</th>
                     <th>CreatedDate</th>
                     <th>IsActive</th>
+                    <th>Lịch trình</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -48,6 +49,14 @@
                         <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
                         <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                         <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+                        <td>
+                                <a asp-controller="TourItineraries"
+                                asp-action="Index"
+                                asp-route-tourId="@item.TourId"
+                                class="btn btn-sm btn-outline-success">
+                                Lịch trình
+                                </a>
+                        </td>                        
                         <td>
                             <div class="btn-group" role="group">
                                 <a asp-action="Edit" asp-route-id="@item.TourId" class="btn btn-sm btn-outline-primary">Edit</a>

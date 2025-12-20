@@ -252,29 +252,42 @@ public class ToursController : Controller
         ViewData["Title"] = "Tour Quốc Tế";
         return View();
     }
-    [AllowAnonymous]
+[AllowAnonymous]
+// GET: Tours/Details/5
+public async Task<IActionResult> Details(int? id)
+{
+    var userName = User?.Identity?.Name ?? "Unknown User";
 
-        // GET: Tours/Details/5
-    public async Task<IActionResult> Details(int? id)
+    if (id == null)
     {
-        var userName = User?.Identity?.Name ?? "Unknown User";
-
-        if (id == null)
-        {
-            Log.Warning("User {UserName} tried to access Tour Details with null ID", userName);
-            return NotFound();
-        }
-
-        var tour = await _unitOfWork.TourRepository.GetByIdAsync(id.Value, "Destination");
-        if (tour == null)
-        {
-            Log.Warning("User {UserName} tried to access Tour Details with invalid ID {TourId}", userName, id);
-            return NotFound();
-        }
-
-        Log.Information("User {UserName} accessed details of Tour {TourId}", userName, id);
-        return View(tour);
+        Log.Warning("User {UserName} tried to access Tour Details with null ID", userName);
+        return NotFound();
     }
+
+    // 1️⃣ Lấy tour + destination
+    var tour = await _unitOfWork.TourRepository
+        .GetByIdAsync(id.Value, "Destination");
+
+    if (tour == null)
+    {
+        Log.Warning("User {UserName} tried to access Tour Details with invalid ID {TourId}", userName, id);
+        return NotFound();
+    }
+
+    // 2️⃣ LẤY LỊCH TRÌNH TOUR
+    var itineraries = await _unitOfWork.TourItineraryRepository
+        .GetAllAsync(i => i.TourId == id.Value);
+
+    // 3️⃣ GỬI SANG VIEW
+    ViewBag.Itineraries = itineraries
+        .OrderBy(i => i.DayNumber)
+        .ToList();
+
+    Log.Information("User {UserName} accessed details of Tour {TourId}", userName, id);
+
+    return View(tour);
+}
+
     [AllowAnonymous]
 [HttpGet]
 public async Task<IActionResult> PublicTours()

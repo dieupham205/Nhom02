@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ToursAndTravelsManagement.Repositories.IRepositories;
 using ToursAndTravelsManagement.ViewModels;
 
+[Authorize(Roles = "Admin")]
 public class DashboardController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;

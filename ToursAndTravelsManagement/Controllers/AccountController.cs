@@ -52,22 +52,9 @@ namespace ToursAndTravelsManagement.Controllers
                 {
                     Log.Information("User {Email} registered successfully.", user.Email);
 
-                    if (!await _roleManager.RoleExistsAsync(model.Role))
-                    {
-                        var role = new IdentityRole(model.Role);
-                        var roleResult = await _roleManager.CreateAsync(role);
-                        if (roleResult.Succeeded)
-                        {
-                            Log.Information("Role {Role} created successfully.", model.Role);
-                        }
-                        else
-                        {
-                            Log.Error("Role creation failed for {Role}.", model.Role);
-                        }
-                    }
-
-                    await _userManager.AddToRoleAsync(user, model.Role);
-                    Log.Information("User {Email} assigned to role {Role}.", user.Email, model.Role);
+                // Gán role mặc định là User
+                    await _userManager.AddToRoleAsync(user, "User");
+                    Log.Information("User {Email} assigned to role {Role}.", user.Email);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     Log.Information("User {Email} signed in after registration.", user.Email);
