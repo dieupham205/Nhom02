@@ -80,6 +80,13 @@ public class UserBookingsController : Controller
         var currentUser = await _userManager.GetUserAsync(User);
         if (currentUser == null)
             return Unauthorized();
+        
+        // ===== GÁN DỮ LIỆU HỆ THỐNG =====
+        booking.UserId = currentUser.Id;
+        booking.BookingDate = DateTime.Now;
+        booking.Status = BookingStatus.Pending;
+        booking.PaymentStatus = PaymentStatus.Pending;
+        booking.IsActive = true;
 
         var tour = await _unitOfWork.TourRepository.GetByIdAsync(booking.TourId);
         if (tour == null)
@@ -112,13 +119,6 @@ public class UserBookingsController : Controller
         {
             booking.FinalPrice = totalPrice;
         }
-
-        // ===== GÁN DỮ LIỆU HỆ THỐNG =====
-        booking.UserId = currentUser.Id;
-        booking.BookingDate = DateTime.Now;
-        booking.Status = BookingStatus.Pending;
-        booking.PaymentStatus = PaymentStatus.Pending;
-        booking.IsActive = true;
 
         // ===== THANH TOÁN (MOCK) =====
         switch (booking.PaymentMethod)

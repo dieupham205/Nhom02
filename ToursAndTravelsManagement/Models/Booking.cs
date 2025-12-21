@@ -40,7 +40,7 @@ public class Booking
     public bool IsActive { get; set; }
 
     public int? VoucherId { get; set; }
-    public Voucher Voucher { get; set; }
+    public Voucher? Voucher { get; set; }
 
     public decimal DiscountAmount { get; set; }
     public decimal FinalPrice { get; set; }
