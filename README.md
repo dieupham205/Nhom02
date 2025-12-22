@@ -1,4 +1,12 @@
 # MÔN PHÁT TRIỂN ỨNG DỤNG THƯƠNG MẠI ĐIỆN TỬ
+##Link publish website: https://vivavivu-dcbjgahhd6agdgfm.southeastasia-01.azurewebsites.net/
++ Tài khoản user: 
+  •	Username: nnlinh@gmail.com
+  •	Password: Nhatlinh128@
++ Tài khoản admin:
+  •	Username: admin@tour.com
+  •	Password: Admin@123
+
 
 ## Tên đề tài: “Thiết kế và xây dựng website đặt tour du lịch VivaVivu”
 Trong bối cảnh thương mại điện tử và du lịch trực tuyến ngày càng phát triển, việc xây dựng các nền tảng đặt tour du lịch trực tuyến đóng vai trò quan trọng trong việc nâng cao trải nghiệm người dùng và tối ưu hóa hoạt động kinh doanh dịch vụ du lịch. Các website đặt tour hiện đại không chỉ cung cấp thông tin tour mà còn tích hợp các chức năng đặt chỗ, thanh toán, quản lý lịch sử giao dịch và cá nhân hóa người dùng. Xuất phát từ nhu cầu thực tiễn đó, đề tài “Thiết kế và xây dựng website đặt tour du lịch VivaVivu” được thực hiện nhằm xây dựng một hệ thống website thương mại điện tử hoàn chỉnh, hỗ trợ người dùng tìm kiếm, đặt tour và thanh toán trực tuyến, đồng thời cung cấp công cụ quản lý hiệu quả cho phía quản trị viên.
