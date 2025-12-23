@@ -10,5 +10,6 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<TourItinerary> TourItineraryRepository { get; }
     IGenericRepository<FavoriteTour> FavoriteTourRepository { get; }
     IGenericRepository<Voucher> VoucherRepository { get; }
+    IGenericRepository<MembershipTier> MembershipTierRepository { get; }
     Task CompleteAsync();
 }

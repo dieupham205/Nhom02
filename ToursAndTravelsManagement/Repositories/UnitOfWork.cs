@@ -14,6 +14,7 @@ public class UnitOfWork : IUnitOfWork
     private IGenericRepository<TourItinerary> _tourItineraryRepository;
     private IGenericRepository<FavoriteTour> _favoriteTourRepository;
     private IGenericRepository<Voucher> _voucherRepository;
+    private IGenericRepository<MembershipTier> _membershipTierRepository;
 
     public UnitOfWork(ApplicationDbContext context)
     {
@@ -89,6 +90,18 @@ public class UnitOfWork : IUnitOfWork
             return _voucherRepository;
         }
     }
+    public IGenericRepository<MembershipTier> MembershipTierRepository
+{
+    get
+    {
+        if (_membershipTierRepository == null)
+        {
+            _membershipTierRepository = new GenericRepository<MembershipTier>(_context);
+        }
+        return _membershipTierRepository;
+    }
+}
+
 
     public async Task CompleteAsync()
     {

@@ -1,20 +1,30 @@
 @model IEnumerable<ToursAndTravelsManagement.Models.Tour>
+
+
 @{
     ViewData["Title"] = "Du Lịch Trong Nước";
     ViewData["IsFullWidth"] = true;
 }
+
+
 <h1 class="text-center display-4 fw-bold text-white py-4 mb-5"
     style="background-color: #333a73;">
     Du lịch trong nước
 </h1>
+
+
 <div class="container-fluid py-5 bg-light">
     <div class="container">
         <div class="row">
-            <!-- ==================== BỘ LỌC ==================== -->
+
+
+            <!-- BỘ LỌC -->
             <div class="col-lg-3 mb-4">
                 <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
                     <div class="card-body">
                         <h5 class="card-title fw-bold mb-4">Bộ lọc tìm kiếm</h5>
+
+
                         <div class="mb-4">
                             <label class="form-label fw-bold">Ngân sách</label>
                             <select id="filterPrice" class="form-select">
@@ -25,6 +35,8 @@
                                 <option value="over20">Trên 20 triệu</option>
                             </select>
                         </div>
+
+
                         <div class="mb-4">
                             <label class="form-label fw-bold">Điểm đến</label>
                             <select id="filterDestination" class="form-select">
@@ -35,6 +47,8 @@
                                         .Where(name => !string.IsNullOrEmpty(name))
                                         .Distinct()
                                         .OrderBy(name => name);
+
+
                                     foreach (var dest in destinations)
                                     {
                                         <option value="@dest">@dest</option>
@@ -42,6 +56,8 @@
                                 }
                             </select>
                         </div>
+
+
                         <div class="mb-4">
                             <label class="form-label fw-bold">Thời gian</label>
                             <select id="filterDuration" class="form-select">
@@ -52,6 +68,8 @@
                                 <option value="over10">Trên 10 ngày</option>
                             </select>
                         </div>
+
+
                         <div class="mb-4">
                             <label class="form-label fw-bold">Số lượng khách</label>
                             <select id="filterParticipants" class="form-select">
@@ -64,7 +82,6 @@
                         </div>
 
 
-                        <!-- MỚI: Bộ lọc ngày khởi hành -->
                         <div class="mb-4">
                             <label class="form-label fw-bold">Ngày khởi hành</label>
                             <select id="filterStartDate" class="form-select">
@@ -78,19 +95,21 @@
 
 
                         <div class="d-grid">
-                            <button type="button" id="resetFilter"
-                                    class="btn btn-outline-secondary rounded-pill">
+                            <button type="button" id="resetFilter" class="btn btn-outline-secondary rounded-pill">
                                 Xóa bộ lọc
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ==================== DANH SÁCH TOUR ==================== -->
+
+
+            <!-- DANH SÁCH TOUR -->
             <div class="col-lg-9">
+
+
                 <!-- THANH TÌM KIẾM + SẮP XẾP -->
                 <div class="mb-5 d-flex align-items-center justify-content-between">
-                    <!-- Thanh tìm kiếm -->
                     <div class="flex-grow-1 me-3">
                         <div class="input-group input-group-lg shadow-sm">
                             <span class="input-group-text bg-white border-end-0">
@@ -103,31 +122,34 @@
                                    autocomplete="off">
                         </div>
                     </div>
-                    <!-- Thanh sắp xếp giá -->
+
+
                     <div class="flex-shrink-0">
-                        <select id="sortPrice" class="form-select form-select-lg">
-                            <option value="low">Giá tăng dần</option>
-                            <option value="high">Giá giảm dần</option>
+                        <select id="sortCriteria" class="form-select form-select-lg">
+                            <option value="startAsc">Ngày khởi hành sớm nhất</option>
+                            <option value="startDesc">Ngày khởi hành trễ nhất</option>
+                            <option value="priceLow">Giá tăng dần</option>
+                            <option value="priceHigh">Giá giảm dần</option>
                         </select>
                     </div>
                 </div>
+
+
                 <h3 class="fw-bold mb-5 text-primary">
                     Tour nội địa nổi bật
                 </h3>
+
+
                 <div id="noResults" class="text-center py-5 d-none">
-                    <h4 class="text-muted">
-                        Không tìm thấy tour nào phù hợp
-                    </h4>
-                    <p class="text-muted">
-                        Hãy thử thay đổi bộ lọc hoặc từ khóa tìm kiếm
-                    </p>
+                    <h4 class="text-muted">Không tìm thấy tour nào phù hợp</h4>
+                    <p class="text-muted">Hãy thử thay đổi bộ lọc hoặc từ khóa tìm kiếm</p>
                 </div>
+
+
                 @if (!Model.Any())
                 {
                     <div class="text-center py-5">
-                        <h4 class="text-muted">
-                            Hiện chưa có tour nội địa
-                        </h4>
+                        <h4 class="text-muted">Hiện chưa có tour nội địa</h4>
                     </div>
                 }
                 else
@@ -149,13 +171,11 @@
                              data-destination="@destinationName"
                              data-duration="@totalDays"
                              data-participants="@tour.MaxParticipants"
-                             data-name="@tour.Name.ToLower()"
-                             data-startdate="@tour.StartDate:yyyy-MM-dd">
+                             data-name="@tour.Name"
+                             data-startdate="@tour.StartDate.ToString("yyyy-MM-dd")">
 
 
-                            <!-- ẢNH TOUR + BADGE GIẢM GIÁ -->
                             <div class="col-md-5 position-relative">
-                                <!-- Badge giảm giá -->
                                 <div class="position-absolute top-0 start-0 m-3 z-3">
                                     <span class="badge bg-danger fs-6 px-3 py-2 rounded-pill shadow">
                                         -@discountPercent%
@@ -171,34 +191,32 @@
                                      data-bs-target="#imageZoomModal"
                                      onclick="setZoomImage(this.src, this.alt)" />
                             </div>
-                            <!-- NỘI DUNG -->
+
+
                             <div class="col-md-7">
-                                <h2 class="h3 fw-bold mb-4">
-                                    @tour.Name
-                                </h2>
+                                <h2 class="h3 fw-bold mb-4">@tour.Name</h2>
+
+
                                 <div class="row g-4 mb-4 text-muted">
                                     <div class="col-sm-6">
                                         <i class="fas fa-map-marker-alt me-2"></i>
-                                        <strong>Điểm đến:</strong>
-                                        @tour.Destination?.Name
+                                        <strong>Điểm đến:</strong> @tour.Destination?.Name
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="fas fa-clock me-2"></i>
-                                        <strong>Thời gian:</strong>
-                                        @totalDays Ngày @totalNights Đêm
+                                        <strong>Thời gian:</strong> @totalDays Ngày @totalNights Đêm
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="fas fa-calendar-alt me-2"></i>
-                                        <strong>Khởi hành:</strong>
-                                        @tour.StartDate.ToString("dd/MM/yyyy")
+                                        <strong>Khởi hành:</strong> @tour.StartDate.ToString("dd/MM/yyyy")
                                     </div>
                                     <div class="col-sm-6">
                                         <i class="fas fa-users me-2"></i>
-                                        <strong>Số lượng:</strong>
-                                        Tối đa @tour.MaxParticipants khách
+                                        <strong>Số lượng:</strong> Tối đa @tour.MaxParticipants khách
                                     </div>
                                 </div>
-                                <!-- GIÁ + CTA -->
+
+
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div>
                                         <div class="text-muted text-decoration-line-through fs-6">
@@ -208,14 +226,17 @@
                                             @tour.Price.ToString("N0")đ
                                         </div>
                                     </div>
-                                    <a asp-action="Details"
-                                       asp-route-id="@tour.TourId"
+
+
+                                    <a asp-action="Details" asp-route-id="@tour.TourId"
                                        class="btn btn-outline-primary btn-sm rounded-pill px-4 py-2">
                                         Xem chi tiết
                                     </a>
                                 </div>
                             </div>
                         </div>
+
+
                         index++;
                     }
                 }
@@ -223,26 +244,23 @@
         </div>
     </div>
 </div>
-<!-- ==================== MODAL ZOOM ẢNH ==================== -->
+
+
+<!-- Modal zoom ảnh -->
 <div class="modal fade" id="imageZoomModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content bg-transparent border-0">
             <div class="modal-header border-0 position-absolute top-0 end-0 z-index-10 p-3">
-                <button type="button"
-                        class="btn-close btn-close-white shadow"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
-                </button>
+                <button type="button" class="btn-close btn-close-white shadow" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body p-0 d-flex align-items-center justify-content-center">
-                <img id="zoomedImage"
-                     class="img-fluid"
-                     style="max-height: 100vh; max-width: 100%; object-fit: contain;"
-                     alt="Zoomed tour image">
+                <img id="zoomedImage" class="img-fluid" style="max-height: 100vh; max-width: 100%; object-fit: contain;" alt="Zoomed tour image">
             </div>
         </div>
     </div>
 </div>
+
+
 <style>
     .btn-outline-primary {
         background-color: #fba834;
@@ -292,12 +310,25 @@
         z-index: 10;
     }
 </style>
+
+
 <script>
     function setZoomImage(src, alt) {
-        const zoomedImg = document.getElementById('zoomedImage');
-        zoomedImg.src = src;
-        zoomedImg.alt = alt;
+        document.getElementById('zoomedImage').src = src;
+        document.getElementById('zoomedImage').alt = alt;
     }
+
+
+    // Hàm bỏ dấu tiếng Việt để tìm kiếm không dấu
+    function removeAccents(str) {
+        if (!str) return '';
+        return str.normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .replace(/đ/g, 'd')
+                  .replace(/Đ/g, 'D');
+    }
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const filterPrice = document.getElementById('filterPrice');
         const filterDestination = document.getElementById('filterDestination');
@@ -305,134 +336,155 @@
         const filterParticipants = document.getElementById('filterParticipants');
         const filterStartDate = document.getElementById('filterStartDate');
         const searchInput = document.getElementById('searchInput');
-        const sortPrice = document.getElementById('sortPrice');
+        const sortCriteria = document.getElementById('sortCriteria');
         const resetBtn = document.getElementById('resetFilter');
         const tourItems = document.querySelectorAll('.tour-item');
         const noResultsMsg = document.getElementById('noResults');
 
 
-        // Tính toán các mốc thời gian
+        // Các mốc ngày để lọc khởi hành
         const today = new Date();
-        const thisMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // cuối tháng này
-        const nextMonth = new Date(today.getFullYear(), today.getMonth() + 2, 0); // cuối tháng sau
-        const next3Months = new Date(today.getFullYear(), today.getMonth() + 4, 0);
-        const next6Months = new Date(today.getFullYear(), today.getMonth() + 7, 0);
+        const thisMonthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        const nextMonthEnd = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+        const next3MonthsEnd = new Date(today.getFullYear(), today.getMonth() + 4, 0);
+        const next6MonthsEnd = new Date(today.getFullYear(), today.getMonth() + 7, 0);
 
 
         function applyFiltersAndSort() {
-            const priceVal = filterPrice.value;
-            const destVal = filterDestination.value;
-            const durationVal = filterDuration.value;
-            const participantsVal = filterParticipants.value;
-            const startDateVal = filterStartDate.value;
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            const sortVal = sortPrice.value;
+            let items = Array.from(tourItems);
 
 
-            const filteredItems = Array.from(tourItems).filter(item => {
-                const price = parseFloat(item.dataset.price);
-                const destination = item.dataset.destination;
-                const duration = parseInt(item.dataset.duration);
-                const participants = parseInt(item.dataset.participants);
-                const name = item.dataset.name;
-                const startDateStr = item.dataset.startdate;
-                const startDate = new Date(startDateStr);
+            // 1. Tìm kiếm không dấu
+            const searchText = searchInput.value.trim();
+            if (searchText) {
+                const searchLower = removeAccents(searchText).toLowerCase();
+                items = items.filter(item => {
+                    const name = removeAccents(item.dataset.name || '').toLowerCase();
+                    const dest = removeAccents(item.dataset.destination || '').toLowerCase();
+                    return name.includes(searchLower) || dest.includes(searchLower);
+                });
+            }
 
 
-                const matchesSearch = !searchTerm ||
-                    name.includes(searchTerm) ||
-                    destination.toLowerCase().includes(searchTerm);
+            // 2. Lọc giá
+            if (filterPrice.value !== 'all') {
+                items = items.filter(item => {
+                    const price = parseFloat(item.dataset.price);
+                    const val = filterPrice.value;
+                    if (val === 'under5') return price < 5000000;
+                    if (val === '5to10') return price >= 5000000 && price <= 10000000;
+                    if (val === '10to20') return price >= 10000000 && price <= 20000000;
+                    if (val === 'over20') return price > 20000000;
+                    return true;
+                });
+            }
 
 
-                let show = matchesSearch;
+            // 3. Lọc điểm đến
+            if (filterDestination.value !== 'all') {
+                items = items.filter(item => item.dataset.destination === filterDestination.value);
+            }
 
 
-                // Lọc giá
-                if (show && priceVal !== 'all') {
-                    if (priceVal === 'under5' && price >= 5000000) show = false;
-                    else if (priceVal === '5to10' && (price < 5000000 || price > 10000000)) show = false;
-                    else if (priceVal === '10to20' && (price < 10000000 || price > 20000000)) show = false;
-                    else if (priceVal === 'over20' && price <= 20000000) show = false;
+            // 4. Lọc thời gian tour
+            if (filterDuration.value !== 'all') {
+                items = items.filter(item => {
+                    const duration = parseInt(item.dataset.duration);
+                    const val = filterDuration.value;
+                    if (val === '1-3') return duration >= 1 && duration <= 3;
+                    if (val === '4-6') return duration >= 4 && duration <= 6;
+                    if (val === '7-10') return duration >= 7 && duration <= 10;
+                    if (val === 'over10') return duration > 10;
+                    return true;
+                });
+            }
+
+
+            // 5. Lọc số lượng khách
+            if (filterParticipants.value !== 'all') {
+                items = items.filter(item => {
+                    const max = parseInt(item.dataset.participants);
+                    const val = filterParticipants.value;
+                    if (val === '1-10') return max <= 10;
+                    if (val === '11-20') return max > 10 && max <= 20;
+                    if (val === '21-30') return max > 20 && max <= 30;
+                    if (val === 'over30') return max > 30;
+                    return true;
+                });
+            }
+
+
+            // 6. Lọc ngày khởi hành
+            if (filterStartDate.value !== 'all') {
+                items = items.filter(item => {
+                    const startDate = new Date(item.dataset.startdate);
+                    const val = filterStartDate.value;
+                    if (val === 'thisMonth') return startDate <= thisMonthEnd;
+                    if (val === 'nextMonth') return startDate > thisMonthEnd && startDate <= nextMonthEnd;
+                    if (val === 'next3Months') return startDate <= next3MonthsEnd;
+                    if (val === 'next6Months') return startDate <= next6MonthsEnd;
+                    return true;
+                });
+            }
+
+
+            // 7. Sắp xếp
+            const sortVal = sortCriteria.value;
+            items.sort((a, b) => {
+                if (sortVal === 'priceLow') {
+                    return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
                 }
-
-
-                // Lọc điểm đến
-                if (show && destVal !== 'all' && destination !== destVal) {
-                    show = false;
+                if (sortVal === 'priceHigh') {
+                    return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
                 }
-
-
-                // Lọc thời gian tour
-                if (show && durationVal !== 'all') {
-                    if (durationVal === '1-3' && (duration < 1 || duration > 3)) show = false;
-                    else if (durationVal === '4-6' && (duration < 4 || duration > 6)) show = false;
-                    else if (durationVal === '7-10' && (duration < 7 || duration > 10)) show = false;
-                    else if (durationVal === 'over10' && duration <= 10) show = false;
+                if (sortVal === 'startAsc') {
+                    return new Date(a.dataset.startdate) - new Date(b.dataset.startdate);
                 }
-
-
-                // Lọc số lượng khách
-                if (show && participantsVal !== 'all') {
-                    if (participantsVal === '1-10' && (participants < 1 || participants > 10)) show = false;
-                    else if (participantsVal === '11-20' && (participants < 11 || participants > 20)) show = false;
-                    else if (participantsVal === '21-30' && (participants < 21 || participants > 30)) show = false;
-                    else if (participantsVal === 'over30' && participants <= 30) show = false;
+                if (sortVal === 'startDesc') {
+                    return new Date(b.dataset.startdate) - new Date(a.dataset.startdate);
                 }
-
-
-                // Lọc ngày khởi hành (MỚI)
-                if (show && startDateVal !== 'all') {
-                    if (startDateVal === 'thisMonth' && startDate > thisMonth) show = false;
-                    else if (startDateVal === 'nextMonth' && (startDate <= thisMonth || startDate > nextMonth)) show = false;
-                    else if (startDateVal === 'next3Months' && startDate > next3Months) show = false;
-                    else if (startDateVal === 'next6Months' && startDate > next6Months) show = false;
-                }
-
-
-                return show;
+                return 0;
             });
 
 
-            // Sắp xếp theo giá
-            filteredItems.sort((a, b) => {
-                const priceA = parseFloat(a.dataset.price);
-                const priceB = parseFloat(b.dataset.price);
-                return sortVal === 'low' ? priceA - priceB : priceB - priceA;
+            // 8. Hiển thị lại
+            const container = tourItems[0]?.parentNode;
+            if (container) {
+                items.forEach(item => container.appendChild(item));
+            }
+            tourItems.forEach(item => {
+                item.style.display = items.includes(item) ? '' : 'none';
             });
 
 
-            // Hiển thị lại
-            const container = tourItems[0].parentNode;
-            filteredItems.forEach(item => container.appendChild(item));
-            tourItems.forEach(item => item.style.display = filteredItems.includes(item) ? '' : 'none');
-
-
-            noResultsMsg.classList.toggle('d-none', filteredItems.length > 0);
+            noResultsMsg.classList.toggle('d-none', items.length > 0);
         }
 
 
-        // Event listeners
+        // Gắn sự kiện
         filterPrice.addEventListener('change', applyFiltersAndSort);
         filterDestination.addEventListener('change', applyFiltersAndSort);
         filterDuration.addEventListener('change', applyFiltersAndSort);
         filterParticipants.addEventListener('change', applyFiltersAndSort);
         filterStartDate.addEventListener('change', applyFiltersAndSort);
         searchInput.addEventListener('input', applyFiltersAndSort);
-        sortPrice.addEventListener('change', applyFiltersAndSort);
+        sortCriteria.addEventListener('change', applyFiltersAndSort);
 
 
+        // Reset
         resetBtn.addEventListener('click', () => {
             filterPrice.value = 'all';
             filterDestination.value = 'all';
             filterDuration.value = 'all';
             filterParticipants.value = 'all';
             filterStartDate.value = 'all';
-            sortPrice.value = 'low';
+            sortCriteria.value = 'startAsc';
             searchInput.value = '';
             applyFiltersAndSort();
         });
 
 
+        // Chạy lần đầu
         applyFiltersAndSort();
     });
 </script>

@@ -75,6 +75,22 @@
                         @Model.User.FirstName @Model.User.LastName
                     </h5>
                     <p class="text-muted small">@Model.User.Email</p>
+
+                    @if (Model.User.MembershipTier != null)
+{
+    <span class="badge rounded-pill px-3 py-1 mt-2"
+          style="background-color:#27377D;color:#fff;font-size:0.8rem;">
+        Hạng thành viên: @Model.User.MembershipTier.Name
+    </span>
+}
+else
+{
+    <span class="badge rounded-pill bg-secondary px-3 py-1 mt-2"
+          style="font-size:0.8rem;">
+        Hạng thành viên: Bronze
+    </span>
+}
+
                 </div>
                
                 <div class="nav flex-column nav-pills profile-menu">
