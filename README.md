@@ -1,142 +1,63 @@
+# MÔN PHÁT TRIỂN ỨNG DỤNG THƯƠNG MẠI ĐIỆN TỬ
 
-# Tours and Travels Management System
+## Tên đề tài: “Thiết kế và xây dựng website đặt tour du lịch VivaVivu”
+Trong bối cảnh thương mại điện tử và du lịch trực tuyến ngày càng phát triển, việc xây dựng các nền tảng đặt tour du lịch trực tuyến đóng vai trò quan trọng trong việc nâng cao trải nghiệm người dùng và tối ưu hóa hoạt động kinh doanh dịch vụ du lịch. Các website đặt tour hiện đại không chỉ cung cấp thông tin tour mà còn tích hợp các chức năng đặt chỗ, thanh toán, quản lý lịch sử giao dịch và cá nhân hóa người dùng. Xuất phát từ nhu cầu thực tiễn đó, đề tài “Thiết kế và xây dựng website đặt tour du lịch VivaVivu” được thực hiện nhằm xây dựng một hệ thống website thương mại điện tử hoàn chỉnh, hỗ trợ người dùng tìm kiếm, đặt tour và thanh toán trực tuyến, đồng thời cung cấp công cụ quản lý hiệu quả cho phía quản trị viên.
 
-Welcome to the **Tours and Travels Management System**, a cutting-edge platform designed to revolutionize travel management! Built with **ASP.NET Core MVC**, this project empowers travel agencies to streamline operations, enhance customer experiences, and manage bookings with unparalleled efficiency. Whether you're a solo traveler or a travel agency, this system is your one-stop solution for seamless travel planning.
+## Mô tả và mục tiêu dự án
+### Mô tả:
+Dự án “Thiết kế và xây dựng website đặt tour du lịch VivaVivu” là một hệ thống website thương mại điện tử được phát triển trên nền tảng ASP.NET MVC, nhằm hỗ trợ hoạt động giới thiệu, đặt tour và quản lý dịch vụ du lịch trực tuyến. Website cho phép người dùng xem danh sách tour, xem chi tiết lịch trình, thực hiện đặt tour, lựa chọn phương thức thanh toán và theo dõi lịch sử các đơn đặt tour của mình. Hệ thống được thiết kế với giao diện trực quan, thân thiện, sử dụng các thành phần như Bootstrap Carousel, Accordion, và các hiệu ứng tương tác để nâng cao trải nghiệm người dùng. Ngoài ra, website còn hỗ trợ quản lý tài khoản cá nhân, cập nhật thông tin người dùng, quản lý booking và trạng thái thanh toán. Các chức năng được phân quyền rõ ràng giữa người dùng và hệ thống quản lý nhằm đảm bảo tính an toàn và hiệu quả trong vận hành.
+### Mục tiêu:
+- Xây dựng nền tảng đặt tour du lịch trực tuyến thân thiện với người dùng
+- Hỗ trợ khách hàng tìm kiếm, xem chi tiết và đặt tour nhanh chóng
+- Đơn giản hóa quy trình đặt tour và thanh toán trực tuyến
+- Cung cấp kênh quảng bá và quản lý tour cho doanh nghiệp du lịch
+- Góp phần thúc đẩy chuyển đổi số trong lĩnh vực thương mại điện tử du lịch
+### Tác giả:
+- Phạm Thị Ngọc Diệu (Nhóm trưởng)
+- Nguyễn Liên Trường Thịnh
+- Nguyễn Nhật Linh
+- Đào Thanh Bảo Trâm
+- Hồ Lê Hoài Thương
+- Nguyễn Bảo Lâm
+- Nguyễn Trần Thúy Vi
 
-## 🌟 Features
+## Xây dựng website đặt tour du lịch
+### Kiến thức áp dụng
+- Phân quyền người dùng (Admin / User) trong quá trình truy cập và sử dụng chức năng hệ thống
+- Sử dụng ASP.NET MVC để tổ chức source code theo mô hình phân tách rõ ràng giữa giao diện, xử lý nghiệp vụ và dữ liệu
+- Thiết kế giao diện người dùng (UI) kết hợp HTML, CSS, Bootstrap nhằm đảm bảo tính trực quan, responsive và trải nghiệm người dùng tốt
+- Xử lý dữ liệu động trên giao diện bằng Razor View Engine, vòng lặp, điều kiện và binding dữ liệu từ Model sang View
+- Áp dụng các nguyên tắc CRUD (Create – Read – Update – Delete) trong quản lý tour và đơn đặt
+- Tối ưu trải nghiệm người dùng trong quy trình đặt tour, thanh toán và xem lịch sử booking
+- Quản lý trạng thái đặt tour và thanh toán thông qua các enum (BookingStatus, PaymentStatus)
+- Kiến thức nền tảng về phát triển ứng dụng thương mại điện tử, đặc biệt trong lĩnh vực du lịch trực tuyến
+- Áp dụng mô hình website đặt tour du lịch với các chức năng tìm kiếm, xem chi tiết, đặt tour và thanh toán
+### Triển khai
+#### Nền tảng xây dựng
+Website đặt tour du lịch VivaVivu được xây dựng trên nền tảng ASP.NET MVC sử dụng ngôn ngữ lập trình C#, áp dụng mô hình kiến trúc Model – View – Controller nhằm tách biệt rõ ràng giữa xử lý nghiệp vụ, dữ liệu và giao diện người dùng. Cách tiếp cận này giúp hệ thống dễ dàng mở rộng, bảo trì và nâng cấp trong tương lai, đồng thời phù hợp với các dự án thương mại điện tử có quy mô vừa và lớn.
 
-- **Effortless Customer Management**: Store and manage customer profiles, preferences, and booking histories in a secure, centralized database.
-- **Dynamic Tour Listings**: Showcase captivating tour packages with rich media, detailed itineraries, and transparent pricing.
-- **Streamlined Booking System**: A user-friendly interface for customers to browse, book, and customize their travel plans in real-time.
-- **Powerful Admin Dashboard**: Control every aspect of your business—manage tours, track bookings, and analyze performance with intuitive tools.
-- **Responsive & Modern Design**: Built with **Bootstrap 5** for a stunning, mobile-first experience across all devices.
-- **Real-Time Notifications**: Keep customers and admins informed with instant booking confirmations and updates.
-- **Secure Payment Integration**: Supports popular payment gateways for safe and hassle-free transactions.
-- **Multi-Language Support**: Reach a global audience with built-in localization features.
+Website sử dụng HTML5, CSS3 và Bootstrap để xây dựng giao diện hiện đại, trực quan và tương thích đa thiết bị. Thiết kế responsive giúp người dùng có thể truy cập và đặt tour thuận tiện trên máy tính, máy tính bảng và điện thoại thông minh. Các thành phần giao diện như thẻ tour, carousel gợi ý tour và biểu mẫu đặt tour được thiết kế nhằm tối ưu trải nghiệm người dùng.
 
-## 🛠️ Tech Stack
+Bên cạnh đó, JavaScript và một số thư viện giao diện được sử dụng để xử lý các tương tác phía người dùng, hỗ trợ hiệu ứng chuyển động, điều hướng, xác nhận hành động và cải thiện tính trực quan trong quá trình tìm kiếm và đặt tour du lịch.
 
-This project leverages a robust and modern tech stack to deliver a high-performance application:
+Về lưu trữ dữ liệu, hệ thống sử dụng Azure SQL Database trên nền tảng Microsoft Azure để quản lý các thông tin liên quan đến tour du lịch, điểm đến, người dùng, booking và thanh toán.
 
-- **ASP.NET Core MVC**: Powers the backend with a scalable, cross-platform framework for rapid development and deployment.
-- **C#**: Drives the core logic with clean, maintainable, and object-oriented code.
-- **Entity Framework Core**: Simplifies database operations with efficient ORM for SQL Server.
-- **HTML5 & CSS3**: Creates structured and visually appealing web pages with modern standards.
-- **JavaScript & jQuery**: Enhances interactivity with dynamic client-side features.
-- **Bootstrap 5**: Ensures a responsive, polished, and consistent UI/UX.
-- **SQL Server**: Stores data securely with a reliable relational database.
-- **Azure (Optional)**: Supports cloud deployment for scalability and global accessibility.
+Việc triển khai cơ sở dữ liệu trên Azure giúp đảm bảo tính ổn định, bảo mật cao, khả năng sao lưu và mở rộng linh hoạt, đáp ứng nhu cầu vận hành website trong môi trường thực tế.
 
-## 🚀 Getting Started
+Công nghệ Entity Framework được sử dụng để kết nối và thao tác dữ liệu theo hướng đối tượng, giúp đơn giản hóa quá trình truy vấn cơ sở dữ liệu, giảm thiểu lỗi và tăng hiệu suất phát triển phần mềm. Điều này cho phép nhóm tập trung nhiều hơn vào logic nghiệp vụ và trải nghiệm người dùng.
 
-Ready to dive in? Follow these steps to set up the project locally and explore its capabilities!
+Cuối cùng, dự án được quản lý bằng Git và GitHub, hỗ trợ làm việc nhóm hiệu quả, theo dõi lịch sử chỉnh sửa source code và đảm bảo quá trình phát triển diễn ra minh bạch, có kiểm soát.
+#### Chuẩn Lập Trình
+Kiến trúc ASP.NET MVC được áp dụng nghiêm ngặt nhằm tách biệt rõ ràng giữa ba thành phần: Model (xử lý dữ liệu và nghiệp vụ), View (giao diện người dùng) và Controller (điều hướng và xử lý logic). Cách tổ chức này giúp source code có cấu trúc rõ ràng, tránh tình trạng trộn lẫn xử lý nghiệp vụ vào giao diện, từ đó nâng cao khả năng tái sử dụng và bảo trì hệ thống.
+Trong quá trình truy cập cơ sở dữ liệu, nhóm sử dụng Entity Framework theo hướng Code First/Database First (tùy giai đoạn), hạn chế viết truy vấn SQL trực tiếp trong Controller. Việc thao tác dữ liệu thông qua các lớp DbContext và entity giúp tăng tính an toàn, giảm lỗi SQL Injection và đảm bảo tính nhất quán của dữ liệu.
 
-### Prerequisites
+Đối với giao diện người dùng, code Razor View được tổ chức gọn gàng, hạn chế viết logic phức tạp trực tiếp trong View. Các khối xử lý điều kiện, vòng lặp chỉ được sử dụng ở mức hiển thị dữ liệu, trong khi các nghiệp vụ xử lý chính được thực hiện tại Controller hoặc Service. CSS được tách riêng và đặt tên class có quy ước rõ ràng để dễ dàng tái sử dụng và chỉnh sửa giao diện.
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download) or later.
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) with ASP.NET and web development workload.
-- [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or any compatible database.
-- A modern web browser (e.g., Chrome, Edge, Firefox).
-- Optional: [Azure account](https://azure.microsoft.com/) for cloud deployment.
+Ngoài ra, dự án tuân thủ các chuẩn về bảo mật và an toàn dữ liệu, bao gồm sử dụng Anti-Forgery Token cho các form quan trọng (đặt tour, hủy booking), kiểm tra dữ liệu đầu vào, phân quyền người dùng rõ ràng giữa Admin và User, cũng như hạn chế truy cập trái phép vào các chức năng quản trị hệ thống.
 
-### Installation
+Cuối cùng, source code được quản lý bằng Git, tuân thủ quy trình commit rõ ràng với thông điệp mô tả ngắn gọn nội dung thay đổi. Việc này giúp dễ dàng theo dõi lịch sử phát triển, hỗ trợ làm việc nhóm hiệu quả và thuận tiện trong quá trình đánh giá, nghiệm thu và bảo trì dự án.
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/TayyabNazeerShaikh/ToursAndTravelsManagement.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd ToursAndTravelsManagement
-   ```
-3. Open the solution (`ToursAndTravelsManagement.sln`) in Visual Studio.
-4. Restore NuGet packages:
-   - Right-click the solution in Solution Explorer and select **Restore NuGet Packages**.
-5. Configure the database:
-   - Update the connection string in `appsettings.json` to point to your SQL Server instance.
-   - Run migrations to set up the database:
-     ```bash
-     dotnet ef database update
-     ```
-6. Build and run the application:
-   - Press `F5` in Visual Studio or run:
-     ```bash
-     dotnet run
-     ```
-7. Access the app at `https://localhost:5001` (or the configured port).
+## Lời cảm ơn
+Nhóm xin gửi lời cảm ơn chân thành và sâu sắc nhất đến thầy Nguyễn Mạnh Tuấn, giảng viên bộ môn Phát triển ứng dụng thương mại điện tử, người đã tận tâm giảng dạy và đồng hành cùng lớp trong suốt học kỳ vừa qua. Thầy không chỉ truyền đạt những kiến thức nền tảng và hiện đại về HTML, CSS, JavaScript, Advanced Front-end, mà còn mở rộng sang các công nghệ quan trọng như ASP.NET MVC, NodeJS và PHP, giúp nhóm có đủ kiến thức và tư duy để tiếp cận việc xây dựng một website hoàn chỉnh.
 
-### Usage
-
-- **Customers**: Browse tour packages, view detailed itineraries, and book trips with ease.
-- **Admins**: Log in to the secure dashboard to manage tours, monitor bookings, and generate reports.
-- **Developers**: Customize the codebase to add new features, integrate APIs, or tailor the UI to your brand.
-
-## 📁 Folder Structure
-
-A glimpse into the project's organization:
-
-- `/Controllers`: Contains MVC controllers for handling requests and business logic.
-- `/Models`: Defines data models and view models for the application.
-- `/Views`: Houses Razor views for rendering dynamic HTML.
-- `/wwwroot`: Stores static assets like CSS, JavaScript, images, and fonts.
-- `/Data`: Manages database context and migrations for Entity Framework Core.
-- `/Services`: Implements business logic and reusable services.
-- `/wwwroot/lib`: Includes third-party libraries like Bootstrap and jQuery.
-
-## 🎨 Customization
-
-Make it your own! Here are some ways to enhance the project:
-
-- **Branding**: Update the CSS in `/wwwroot/css` to match your brand's colors and style.
-- **New Features**: Add integrations like Google Maps for tour locations or Twilio for SMS notifications.
-- **Performance**: Optimize queries in Entity Framework or enable caching with Redis.
-- **Deployment**: Host on Azure, AWS, or any cloud provider for global access.
-
-## 📚 Documentation
-
-Dive deeper into the project with our comprehensive [Wiki](https://github.com/TayyabNazeerShaikh/ToursAndTravelsManagement/wiki). Find guides on setup, customization, and advanced configurations.
-
-## 🤝 Contributing
-
-We love contributions! Here's how you can help make this project even better:
-
-1. Fork the repository.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/amazing-new-feature
-   ```
-3. Commit your changes with clear messages:
-   ```bash
-   git commit -m "Add amazing new feature"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature/amazing-new-feature
-   ```
-5. Open a pull request and describe your changes.
-
-Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) and review the [Contributing Guidelines](CONTRIBUTING.md).
-
-## 🐛 Issues
-
-Found a bug or have a feature request? Check the [Issues](https://github.com/TayyabNazeerShaikh/ToursAndTravelsManagement/issues) page or create a new issue with detailed information.
-
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE)—free to use, modify, and distribute.
-
-## 🙌 Acknowledgments
-
-- A huge thank you to the **ASP.NET Core** and open-source communities for their incredible tools and resources.
-- Shoutout to all contributors for their passion and creativity.
-- Special thanks to [Bootstrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/) for making development a breeze.
-
-## 🌍 Connect with Us
-
-- Follow the project on [GitHub](https://github.com/TayyabNazeerShaikh/ToursAndTravelsManagement) for updates.
-- Share your feedback or showcase your customizations on [X](https://x.com) with #ToursAndTravelsManagement.
-- Reach out to the maintainer at [tayyab@example.com](mailto:tayyab@example.com) for inquiries.
-
----
-
-Ready to embark on a journey of innovation? Clone the repo, explore the code, and build something extraordinary with the **Tours and Travels Management System**!
+## Danh sách lỗi
