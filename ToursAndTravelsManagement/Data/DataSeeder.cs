@@ -165,5 +165,29 @@ namespace ToursAndTravelsManagement.Data
                 }
             }
         }
+
+        public async Task SeedMembershipTiersAsync()
+{
+    if (!(await _unitOfWork.MembershipTierRepository.GetAllAsync()).Any())
+    {
+        await _unitOfWork.MembershipTierRepository.AddAsync(
+            new MembershipTier { Name = "Bronze", MinRevenue = 0, DiscountPercent = 5 }
+        );
+
+        await _unitOfWork.MembershipTierRepository.AddAsync(
+            new MembershipTier { Name = "Silver", MinRevenue = 10_000_000, DiscountPercent = 10 }
+        );
+
+        await _unitOfWork.MembershipTierRepository.AddAsync(
+            new MembershipTier { Name = "Gold", MinRevenue = 30_000_000, DiscountPercent = 15 }
+        );
+
+        await _unitOfWork.MembershipTierRepository.AddAsync(
+            new MembershipTier { Name = "Platinum", MinRevenue = 70_000_000, DiscountPercent = 20 }
+        );
+
+        await _unitOfWork.CompleteAsync();
+    }
+}
     }
 }

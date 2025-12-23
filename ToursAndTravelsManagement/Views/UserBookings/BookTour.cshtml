@@ -7,7 +7,18 @@
     var tour = ViewBag.Tour as Tour;
 }
 
-<div id="bookingRoot" data-price="@tour.Price.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"></div>
+@{
+    var tier = ViewBag.MembershipTier as MembershipTier;
+    var tierDiscountPercent = tier?.DiscountPercent ?? 0;
+    var tierName = tier?.Name ?? "Bronze";
+}
+
+
+<div id="bookingRoot"
+     data-price="@tour.Price.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
+     data-tier-discount="@tierDiscountPercent">
+</div>
+
 
 <div class="container py-5">
 
@@ -22,6 +33,7 @@
         <input type="hidden" asp-for="BookingDate" value="@DateTime.Now" />
         <!-- Số lượng hành khách sẽ được cập nhật realtime bằng JS -->
         <input type="hidden" asp-for="NumberOfParticipants" id="hiddenParticipantCount" value="0" />
+        <input type="hidden" id="discountAmount" name="DiscountAmount" value="0" />
 
 
         <div class="row g-5">
@@ -259,9 +271,10 @@
 
 
                             <!-- NÚT ĐẶT NGAY -->
-                            <a class="btn btn-outline-primary btn-sm rounded-pill px-4 py-2" asp-controller="UserBookings" asp-action="Success" asp-route-id="@Model.TourId">
+                            <button type="submit"
+                                    class="btn btn-primary btn-lg w-100 rounded-pill mt-4">
                                 Đặt ngay
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -322,6 +335,16 @@
 
 
                         <div class="d-flex justify-content-between align-items-center">
+                            @if (tierDiscountPercent > 0)
+{
+    <div class="d-flex justify-content-between text-success mb-2">
+        <span>
+            Giảm giá thành viên (@tierName - @tierDiscountPercent%)
+        </span>
+        <span id="tierDiscountText">- 0 đ</span>
+    </div>
+}
+
                             <h4 class="fw-bold mb-0">Tổng tiền:</h4>
                             <h3 class="fw-bold mb-0" style="color:#fba834;" id="summaryTotalPrice">0 đ</h3>
                             <input type="hidden" id="totalPrice" name="TotalAmount" value="0" />
@@ -343,23 +366,42 @@
     );
 
     // Update price
-    function updateCountsAndPrice() {
-        document.getElementById('hiddenParticipantCount').value = passengerCount;
-        document.getElementById('summaryPassengerCount').textContent = passengerCount + ' người';
+function updateCountsAndPrice() {
+    document.getElementById('hiddenParticipantCount').value = passengerCount;
+    document.getElementById('summaryPassengerCount').textContent =
+        passengerCount + ' người';
 
+    const total = pricePerPerson * passengerCount;
 
-        const total = pricePerPerson * passengerCount;
-        document.getElementById('summaryTotalPrice').textContent =
-            total.toLocaleString('vi-VN') + ' đ';
+    const tierDiscountPercent = parseFloat(
+        document.getElementById('bookingRoot').dataset.tierDiscount
+    ) || 0;
 
-        document.getElementById('totalPrice').value = total;
-        document.getElementById('finalPrice').value = total;
+    const tierDiscount = total * tierDiscountPercent / 100;
+    const final = total - tierDiscount;
+
+    // Hiển thị tổng tiền
+    document.getElementById('summaryTotalPrice').textContent =
+        final.toLocaleString('vi-VN') + ' đ';
+
+    // Hiển thị giảm hạng
+    const tierDiscountText = document.getElementById('tierDiscountText');
+    if (tierDiscountText) {
+        tierDiscountText.textContent =
+            '- ' + tierDiscount.toLocaleString('vi-VN') + ' đ';
     }
+
+    // Gửi BE
+    document.getElementById('totalPrice').value = total;
+    document.getElementById('finalPrice').value = final;
+    document.getElementById('discountAmount').value = tierDiscount;
+}
+
 
     // Voucher
     function applyVoucher() {
         const code = document.getElementById('voucherCode').value.trim();
-        const total = parseFloat(document.getElementById('totalPrice').value);
+        const total = parseFloat(document.getElementById('finalPrice').value);
         const messageEl = document.getElementById('voucherMessage');
 
         if (!code) {
@@ -385,23 +427,46 @@
             })
         })
         .then(res => res.json())
-        .then(data => {
-            if (!data.success) {
-                messageEl.textContent = data.message;
-                messageEl.className = 'text-danger mt-2 d-block';
-                return;
-            }
+.then(data => {
+    if (!data.success) {
+        messageEl.textContent = data.message;
+        messageEl.className = 'text-danger mt-2 d-block';
+        return;
+    }
 
-            document.getElementById('voucherId').value = data.voucherId;
-            document.getElementById('discountAmount').value = data.discountAmount;
-            document.getElementById('finalPrice').value = data.finalPrice;
+    const originalTotal = parseFloat(document.getElementById('totalPrice').value);
 
-            document.getElementById('summaryTotalPrice').textContent =
-                data.finalPrice.toLocaleString('vi-VN') + ' đ';
+    const tierDiscountPercent = parseFloat(
+        document.getElementById('bookingRoot').dataset.tierDiscount
+    ) || 0;
 
-            messageEl.textContent = 'Áp dụng voucher thành công!';
-            messageEl.className = 'text-success mt-2 d-block';
-        })
+    const tierDiscount = originalTotal * tierDiscountPercent / 100;
+    const afterTierPrice = originalTotal - tierDiscount;
+
+    const voucherDiscount = data.discountAmount;
+    const finalPrice = afterTierPrice - voucherDiscount;
+
+    // UI: giảm hạng
+    const tierDiscountText = document.getElementById('tierDiscountText');
+    if (tierDiscountText) {
+        tierDiscountText.textContent =
+            '- ' + tierDiscount.toLocaleString('vi-VN') + ' đ';
+    }
+
+    // UI: tổng tiền cuối
+    document.getElementById('summaryTotalPrice').textContent =
+        finalPrice.toLocaleString('vi-VN') + ' đ';
+
+    // Hidden gửi BE
+    document.getElementById('voucherId').value = data.voucherId;
+    document.getElementById('discountAmount').value =
+        tierDiscount + voucherDiscount;
+    document.getElementById('finalPrice').value = finalPrice;
+
+    messageEl.textContent = 'Áp dụng voucher thành công!';
+    messageEl.className = 'text-success mt-2 d-block';
+})
+
         .catch(err => {
             console.error(err);
             messageEl.textContent = 'Lỗi hệ thống, vui lòng thử lại';

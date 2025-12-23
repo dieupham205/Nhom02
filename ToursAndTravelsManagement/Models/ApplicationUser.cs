@@ -16,7 +16,11 @@ public class ApplicationUser : IdentityUser
     public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
     public bool IsActive { get; set; }
     public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public decimal TotalRevenue { get; set; } = 0;
+    public int? MembershipTierId { get; set; }
+    public MembershipTier MembershipTier { get; set; }
 }
+
 public class Bookings
 {
     public int BookingId { get; set; }
@@ -34,3 +38,5 @@ public class Bookings
 
     public BookingStatus Status { get; set; }
 }
+
+
