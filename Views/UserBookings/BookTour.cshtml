@@ -209,13 +209,13 @@
 
                                 <!-- Paypal -->
                                 <div class="col-12">
-                                    <label class="payment-option card border rounded-4 p-4 shadow-sm h-100 position-relative cursor-pointer opacity-75">
+                                    <label class="payment-option card border rounded-4 p-4 shadow-sm h-100 position-relative cursor-pointer">
 
                                         <input type="radio"
                                             asp-for="PaymentMethod"
                                             value="PayPal"
                                             class="position-absolute opacity-0"
-                                            disabled />
+                                            required />
 
                                         <div class="d-flex align-items-center">
 
@@ -231,10 +231,6 @@
 
                                                 <small class="text-muted d-block">
                                                     Thanh toán quốc tế bằng Visa, Mastercard...
-                                                </small>
-
-                                                <small class="text-warning fw-semibold">
-                                                    Sắp ra mắt
                                                 </small>
 
                                             </div>

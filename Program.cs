@@ -13,7 +13,7 @@ using ToursAndTravelsManagement.Services.PdfService;
 using QuestPDF.Infrastructure;
 using ToursAndTravelsManagement.Services.ExcelService;
 using ToursAndTravelsManagement.Services.VNPay;
-//using ToursAndTravelsManagement.Services.PayPal;
+using ToursAndTravelsManagement.Services.PayPal;
 
 namespace ToursAndTravelsManagement;
 
@@ -69,7 +69,7 @@ public class Program
         builder.Services.AddHttpClient();
 
         builder.Services.AddScoped<VNPayService>();
-        //builder.Services.AddScoped<PayPalService>();
+        builder.Services.AddScoped<PayPalService>();
 
         var app = builder.Build();
 

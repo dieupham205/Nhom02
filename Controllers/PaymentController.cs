@@ -2,19 +2,23 @@ using Microsoft.AspNetCore.Mvc;
 using ToursAndTravelsManagement.Data;
 using ToursAndTravelsManagement.Enums;
 using ToursAndTravelsManagement.Services.VNPay;
+using ToursAndTravelsManagement.Services.PayPal;
 
 namespace ToursAndTravelsManagement.Controllers;
 
 public class PaymentController : Controller
 {
     private readonly VNPayService _vnPayService;
+    private readonly PayPalService _payPalService;
     private readonly ApplicationDbContext _context;
 
     public PaymentController(
         VNPayService vnPayService,
+        PayPalService payPalService,
         ApplicationDbContext context)
     {
         _vnPayService = vnPayService;
+        _payPalService = payPalService;
         _context = context;
     }
 
@@ -106,6 +110,80 @@ public class PaymentController : Controller
                 new { bookingId = booking.BookingId });
         }
 
+        return RedirectToAction(
+            "PaymentFailed",
+            "UserBookings");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> CreatePayPalPayment(int bookingId)
+    {
+        var booking = _context.Bookings
+            .FirstOrDefault(b => b.BookingId == bookingId);
+
+        if (booking == null)
+        {
+            return NotFound();
+        }
+
+        var approvalUrl =
+            await _payPalService.CreateOrderAsync(
+                booking.BookingId,
+                booking.FinalPrice);
+
+        if (string.IsNullOrEmpty(approvalUrl))
+        {
+            return Content("Cannot create PayPal order.");
+        }
+
+        return Redirect(approvalUrl);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> PayPalSuccess(
+        string token,
+        string PayerID)
+    {
+        await _payPalService.CaptureOrderAsync(token);
+
+        var booking = _context.Bookings
+            .OrderByDescending(x => x.BookingId)
+            .FirstOrDefault();
+
+        if (booking == null)
+        {
+            return NotFound();
+        }
+
+        booking.PaymentStatus =
+            PaymentStatus.Completed;
+
+        booking.Status =
+            BookingStatus.Confirmed;
+
+        booking.PaymentGateway =
+            "PayPal";
+
+        booking.PaymentTransactionId =
+            token;
+
+        booking.PaymentCompletedAt =
+            DateTime.UtcNow;
+
+        _context.SaveChanges();
+
+        return RedirectToAction(
+            "Success",
+            "UserBookings",
+            new
+            {
+                bookingId = booking.BookingId
+            });
+    }
+
+    [HttpGet]
+    public IActionResult PayPalCancel()
+    {
         return RedirectToAction(
             "PaymentFailed",
             "UserBookings");

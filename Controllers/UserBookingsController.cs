@@ -279,16 +279,10 @@ var currentUser = await _userManager.Users
 
             case PaymentMethod.PayPal:
 
-                booking.Status = BookingStatus.Cancelled;
-                booking.IsActive = false;
-
-                _unitOfWork.BookingRepository.Update(booking);
-
-                await _unitOfWork.CompleteAsync();
-
                 return RedirectToAction(
-                    "ComingSoon",
-                    "Home");
+                    "CreatePayPalPayment",
+                    "Payment",
+                    new { bookingId = booking.BookingId });
 
             case PaymentMethod.Cash:
 
