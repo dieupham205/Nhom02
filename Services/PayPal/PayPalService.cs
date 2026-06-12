@@ -39,7 +39,7 @@ public class PayPalService
                     amount = new
                     {
                         currency_code = "USD",
-                        value = amount.ToString("0.00")
+                        value = (amount / 25000m).ToString("0.00")
                     }
                 }
             },
