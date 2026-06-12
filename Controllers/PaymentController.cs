@@ -133,7 +133,12 @@ public class PaymentController : Controller
                     booking.BookingId,
                     booking.FinalPrice);
 
-            return Content($"Approval URL = {approvalUrl}");
+            if (string.IsNullOrEmpty(approvalUrl))
+            {
+                return Content("Cannot create PayPal order.");
+            }
+
+            return Redirect(approvalUrl);
         }
         catch (Exception ex)
         {
