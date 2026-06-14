@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ToursAndTravelsManagement.Data;
 using ToursAndTravelsManagement.Enums;
 using ToursAndTravelsManagement.Services.VNPay;
 using ToursAndTravelsManagement.Services.PayPal;
+using ToursAndTravelsManagement.Services.MoMo;
 
 namespace ToursAndTravelsManagement.Controllers;
 
@@ -10,15 +12,18 @@ public class PaymentController : Controller
 {
     private readonly VNPayService _vnPayService;
     private readonly PayPalService _payPalService;
+    private readonly MoMoService _moMoService;
     private readonly ApplicationDbContext _context;
 
     public PaymentController(
         VNPayService vnPayService,
         PayPalService payPalService,
+        MoMoService moMoService,
         ApplicationDbContext context)
     {
         _vnPayService = vnPayService;
         _payPalService = payPalService;
+        _moMoService = moMoService;
         _context = context;
     }
 
@@ -192,5 +197,36 @@ public class PaymentController : Controller
         return RedirectToAction(
             "PaymentFailed",
             "UserBookings");
+    }
+
+    public async Task<IActionResult>
+        CreateMoMoPayment(int bookingId)
+    {
+        var booking =
+            _context.Bookings
+                .FirstOrDefault(
+                    x => x.BookingId == bookingId);
+
+        if (booking == null)
+        {
+            return NotFound();
+        }
+
+        var payUrl =
+            await _moMoService.CreatePaymentAsync(
+                booking.BookingId,
+                booking.FinalPrice);
+
+        return Redirect(payUrl!);
+    }
+
+    public IActionResult MoMoReturn()
+    {
+        return Content(
+            JsonConvert.SerializeObject(
+                Request.Query.ToDictionary(
+                    x => x.Key,
+                    x => x.Value.ToString()),
+                Formatting.Indented));
     }
 }

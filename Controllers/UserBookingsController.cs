@@ -284,6 +284,13 @@ var currentUser = await _userManager.Users
                     "Payment",
                     new { bookingId = booking.BookingId });
 
+            case PaymentMethod.MoMo:
+
+                return RedirectToAction(
+                    "CreateMoMoPayment",
+                    "Payment",
+                    new { bookingId = booking.BookingId });
+
             case PaymentMethod.Cash:
 
                 booking.PaymentStatus = PaymentStatus.Pending;

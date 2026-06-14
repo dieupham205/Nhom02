@@ -243,6 +243,41 @@
                                     </label>
                                 </div>
 
+                                <!-- MoMo -->
+                                <div class="col-12">
+                                    <label class="payment-option card border rounded-4 p-4 shadow-sm h-100 position-relative cursor-pointer">
+
+                                        <input type="radio"
+                                            asp-for="PaymentMethod"
+                                            value="MoMo"
+                                            class="position-absolute opacity-0"
+                                            required />
+
+                                        <div class="d-flex align-items-center">
+
+                                            <div class="me-4">
+                                                <i class="bi bi-wallet2 fs-2 text-danger"></i>
+                                            </div>
+
+                                            <div class="flex-grow-1">
+
+                                                <h6 class="fw-bold mb-1">
+                                                    Thanh toán qua MoMo
+                                                </h6>
+
+                                                <small class="text-muted d-block">
+                                                    Thanh toán bằng ví điện tử MoMo
+                                                </small>
+
+                                            </div>
+
+                                            <div class="checkmark border rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-check text-white"></i>
+                                            </div>
+
+                                        </div>
+                                    </label>
+                                </div>
 
                                 <!-- Thanh toán tiền mặt -->
                                 <div class="col-12">

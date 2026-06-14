@@ -14,6 +14,7 @@ using QuestPDF.Infrastructure;
 using ToursAndTravelsManagement.Services.ExcelService;
 using ToursAndTravelsManagement.Services.VNPay;
 using ToursAndTravelsManagement.Services.PayPal;
+using ToursAndTravelsManagement.Services.MoMo;
 
 namespace ToursAndTravelsManagement;
 
@@ -70,6 +71,7 @@ public class Program
 
         builder.Services.AddScoped<VNPayService>();
         builder.Services.AddScoped<PayPalService>();
+        builder.Services.AddScoped<MoMoService>();
 
         var app = builder.Build();
 
